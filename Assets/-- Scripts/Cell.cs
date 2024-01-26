@@ -13,21 +13,18 @@ public class Cell : MonoBehaviour
     [SerializeField] private GameObject _img;
 
 
-    private void Start()
-    {
-        if (CellColor == Colors.Yellow)
-        {
-            UpdateViewCell(true);
-            foreach (var cell in Neighbor)
-            {
-                cell.UpdateViewCell(true);
-            }
-        }
-    }
-
     public void UpdateViewCell(bool state)
     {
         _img.SetActive(state);
+    }
+
+    public void UpdateAllNeighbor(bool state)
+    {
+        UpdateViewCell(state);
+        foreach (var cell in Neighbor)
+        {
+            cell.UpdateViewCell(state);
+        }
     }
 }
 
