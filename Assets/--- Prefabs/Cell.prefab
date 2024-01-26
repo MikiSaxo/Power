@@ -59,6 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ef4f04d78d6f44d93f22541db4485f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Color>k__BackingField: 0
+  <IsSea>k__BackingField: 0
+  <Neighbor>k__BackingField: []
+  _img: {fileID: 4951677158252323968}
 --- !u!1 &4951677158252323968
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +80,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1684016028642217136
 RectTransform:
   m_ObjectHideFlags: 0
