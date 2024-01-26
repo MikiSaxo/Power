@@ -192,6 +192,10 @@ PrefabInstance:
       value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
       value: -1
       objectReference: {fileID: 0}
@@ -1122,6 +1126,10 @@ PrefabInstance:
     - target: {fileID: 4644981767293522622, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_Name
       value: Y_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isFullLand
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -2253,6 +2261,10 @@ PrefabInstance:
       value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
       value: -1
       objectReference: {fileID: 0}
@@ -2763,6 +2775,10 @@ PrefabInstance:
       value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
       value: -1
       objectReference: {fileID: 0}
@@ -2982,6 +2998,10 @@ PrefabInstance:
     - target: {fileID: 7856363170885238837, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -3416,6 +3436,10 @@ PrefabInstance:
     - target: {fileID: 7856363170885238837, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -4211,6 +4235,10 @@ PrefabInstance:
     - target: {fileID: 7856363170885238837, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -5369,6 +5397,10 @@ PrefabInstance:
       value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
       value: -1
       objectReference: {fileID: 0}
@@ -5540,6 +5572,10 @@ PrefabInstance:
     - target: {fileID: 4644981767293522622, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_Name
       value: R_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isFullLand
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -6326,6 +6362,10 @@ PrefabInstance:
       value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
       value: -1
       objectReference: {fileID: 0}
@@ -6738,6 +6778,10 @@ PrefabInstance:
     - target: {fileID: 7856363170885238837, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -7319,6 +7363,10 @@ PrefabInstance:
       value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
       value: -1
       objectReference: {fileID: 0}
@@ -7538,6 +7586,10 @@ PrefabInstance:
     - target: {fileID: 7856363170885238837, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -7916,6 +7968,10 @@ PrefabInstance:
     - target: {fileID: 4644981767293522622, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_Name
       value: B_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isFullLand
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Neighbor>k__BackingField.Array.size
@@ -10987,6 +11043,7 @@ GameObject:
   - component: {fileID: 2006693767}
   - component: {fileID: 2006693766}
   - component: {fileID: 2006693765}
+  - component: {fileID: 2006693769}
   m_Layer: 5
   m_Name: ------------------------------------------ CanvasGame
   m_TagString: Untagged
@@ -11080,6 +11137,76 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2006693769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006693764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3781656da0521ae4292ef9c336f30b9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _allCells:
+  - {fileID: 1690142426}
+  - {fileID: 1867540486}
+  - {fileID: 311879441}
+  - {fileID: 1026722429}
+  - {fileID: 1460374949}
+  - {fileID: 458018545}
+  - {fileID: 1010989365}
+  - {fileID: 1231320825}
+  - {fileID: 1230023552}
+  - {fileID: 1008955727}
+  - {fileID: 1588321316}
+  - {fileID: 2085629429}
+  - {fileID: 2097369882}
+  - {fileID: 1480226794}
+  - {fileID: 275138558}
+  - {fileID: 1246323562}
+  - {fileID: 361104214}
+  - {fileID: 1646609968}
+  - {fileID: 1970663431}
+  - {fileID: 1736905456}
+  - {fileID: 549104943}
+  - {fileID: 863397973}
+  - {fileID: 475868030}
+  - {fileID: 1483247020}
+  - {fileID: 1211853982}
+  - {fileID: 832820466}
+  - {fileID: 1339126809}
+  - {fileID: 1327233820}
+  - {fileID: 853108489}
+  - {fileID: 1428518186}
+  - {fileID: 1653057515}
+  - {fileID: 486500172}
+  - {fileID: 2097654013}
+  - {fileID: 1891080186}
+  - {fileID: 1956076119}
+  - {fileID: 1826565996}
+  - {fileID: 1510560953}
+  - {fileID: 775501892}
+  - {fileID: 1753125210}
+  - {fileID: 1299560808}
+  - {fileID: 645029990}
+  - {fileID: 1301210593}
+  - {fileID: 3061561}
+  - {fileID: 1387245883}
+  - {fileID: 1800691628}
+  - {fileID: 1343467476}
+  - {fileID: 758120326}
+  - {fileID: 560497982}
+  - {fileID: 2066979210}
+  - {fileID: 501359922}
+  - {fileID: 1277570281}
+  - {fileID: 1175687746}
+  - {fileID: 159071212}
+  - {fileID: 1103168994}
+  - {fileID: 269142431}
+  - {fileID: 357011828}
+  - {fileID: 747114933}
 --- !u!1001 &2066979208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11147,6 +11274,10 @@ PrefabInstance:
     - target: {fileID: 7856363170885238837, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isSea
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField
@@ -11725,9 +11856,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 1652349044}
     m_Modifications:
     - target: {fileID: 1205324063916756497, guid: de863adedbc1c5a4fb0b11ca1529939b, type: 3}
+      propertyPath: _troopInfos
+      value: 
+      objectReference: {fileID: 11400000, guid: 573bd1925565fbc4980ee13572451156, type: 2}
+    - target: {fileID: 1205324063916756497, guid: de863adedbc1c5a4fb0b11ca1529939b, type: 3}
       propertyPath: <CurrentCell>k__BackingField
       value: 
-      objectReference: {fileID: 1008955727}
+      objectReference: {fileID: 1026722429}
     - target: {fileID: 2817843820252958635, guid: de863adedbc1c5a4fb0b11ca1529939b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11840,6 +11975,10 @@ PrefabInstance:
     - target: {fileID: 4644981767293522622, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: m_Name
       value: G_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
+      propertyPath: _isFullLand
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975362379627472268, guid: 037c00053433fcd42984a29fd44deab1, type: 3}
       propertyPath: <Color>k__BackingField

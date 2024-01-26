@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class Troop : MonoBehaviour
 {
+    [SerializeField] private TroopInfos _troopInfos;
     [field: SerializeField] public Cell CurrentCell { get; set; }
 
     private void Start()
     {
-        CurrentCell.UpdateAllNeighbor(true);
+        if(_troopInfos.TroopsType == TroopsType.MegaMissile)
+            Manager.Instance.UpdateAllCells(true);
+        else
+            CurrentCell.UpdateAllNeighbor(true, _troopInfos.MovementRange, _troopInfos.CanCrossSea);
     }
 }
 

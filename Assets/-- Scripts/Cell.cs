@@ -2,28 +2,69 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Cell : MonoBehaviour
 {
     [field: SerializeField] public Colors CellColor { get; set; }
-    [field: SerializeField] public bool IsSea { get; set; }
+    [SerializeField] private bool _isSea;
+    [SerializeField] private bool _isFullLand;
     [field: SerializeField] public List<Cell> Neighbor { get; set; } = new List<Cell>();
 
-    [Header("---- Prefab")]
+    [Header("---- Prefab")] 
     [SerializeField] private GameObject _img;
 
 
-    public void UpdateViewCell(bool state)
+
+    public void UpdateViewCell(bool state, bool canCrossSea)
+    {
+        if (canCrossSea == false && _isSea == true)
+            return;
+        if (canCrossSea == true && _isFullLand == true)
+            return;
+
+        ForceUpdateViewCell(state);
+    }
+
+    public void ForceUpdateViewCell(bool state)
     {
         _img.SetActive(state);
     }
 
-    public void UpdateAllNeighbor(bool state)
+    public void UpdateAllNeighbor(bool state, int time, bool canCrossSea)
     {
-        UpdateViewCell(state);
+        if (canCrossSea == false && _isSea == true)
+            return;
+        if (canCrossSea == true && _isFullLand == true)
+            return;
+        
+        print($"{name} : {canCrossSea} / {_isSea}");
+        
+        UpdateViewCell(state, canCrossSea);
+        
+        time--;
+        if (time > 0)
+        {
+            foreach (var cell in Neighbor)
+            {
+                cell.UpdateAllNeighbor(state, time, canCrossSea);
+            }
+        }
+        else
+        {
+            foreach (var cell in Neighbor)
+            {
+                cell.UpdateViewCell(state, canCrossSea);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
         foreach (var cell in Neighbor)
         {
-            cell.UpdateViewCell(state);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(gameObject.transform.position, cell.gameObject.transform.position);
         }
     }
 }
