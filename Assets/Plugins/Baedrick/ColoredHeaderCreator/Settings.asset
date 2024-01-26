@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   headerSettings:
-    headerText: New Header
-    headerColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    textAlignmentOptions: 0
+    headerText: Neutral
+    headerColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+    textAlignmentOptions: 1
     fontStyleOptions: 0
     fontSize: 12
     fontColor: {r: 1, g: 1, b: 1, a: 1}
-    dropShadow: 0
+    dropShadow: 1
