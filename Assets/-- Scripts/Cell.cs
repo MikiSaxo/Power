@@ -13,20 +13,20 @@ public class Cell : MonoBehaviour
     [SerializeField] private bool _isFullLand;
     [field: SerializeField] public List<Cell> Neighbor { get; set; } = new List<Cell>();
 
-    [Header("---- Prefab")] [SerializeField] private Image _img;
+    [Header("---- Prefab")] [SerializeField]
+    private Image _img;
 
     [SerializeField] private Color[] _colors;
 
-    [Header("--- Timings ---")]
-    [SerializeField] private float _enter = .5f;
+    [Header("--- Timings ---")] [SerializeField]
+    private float _enter = .5f;
+
     [SerializeField] private float _exit = .5f;
     [SerializeField] private float _click = .5f;
-    
-    public bool IsSelected { get; set; }
+
+    public bool IsBlocked { get; set; }
 
     private bool _isActive;
-    private bool _isTreated;
-    
 
     public void UpdateViewCell(bool state, bool canCrossSea)
     {
@@ -34,50 +34,42 @@ public class Cell : MonoBehaviour
             return;
         if (canCrossSea == true && _isFullLand == true)
             return;
+        if (IsBlocked)
+            return;
+
 
         ForceUpdateViewCell(state);
     }
 
     public void ForceUpdateViewCell(bool state)
     {
-        StartCoroutine(WaitForceUpdateViewCell(state));
-    }
-
-    IEnumerator WaitForceUpdateViewCell(bool state)
-    {
-        yield return new WaitForSeconds(.1f);
-        
         if (state)
         {
+            _img.DOKill();
             _img.DOFade(1, 0.5f);
         }
         else
         {
+            _img.DOKill();
             _img.DOFade(0, 0.1f);
         }
 
         _isActive = state;
     }
 
-    public void UpdateAllNeighbor(bool state, int time, bool canCrossSea, bool stateMe)
+    public void UpdateAllNeighbor(bool state, int time, bool canCrossSea)
     {
         if (canCrossSea == false && _isSea == true)
             return;
         if (canCrossSea == true && _isFullLand == true)
             return;
 
-        if (!_isTreated)
-        {
-            UpdateViewCell(stateMe, canCrossSea);
-            _isTreated = true;
-        }
-
         time--;
         if (time > 0)
         {
             foreach (var cell in Neighbor)
             {
-                cell.UpdateAllNeighbor(state, time, canCrossSea, state);
+                cell.UpdateAllNeighbor(state, time, canCrossSea);
             }
         }
         else
@@ -113,16 +105,28 @@ public class Cell : MonoBehaviour
 
     public void OnPointerEnter()
     {
-        if (!_isActive || IsSelected) return;
+        if (!_isActive) return;
 
+        _img.DOKill();
         _img.DOColor(_colors[1], _enter);
     }
 
     public void OnPointerExit()
     {
-        if (!_isActive || IsSelected) return;
+        if (!_isActive || IsBlocked) return;
 
+        _img.DOKill();
         _img.DOColor(_colors[0], _exit);
+    }
+
+    public void ResetCell()
+    {
+        IsBlocked = false;
+        _isActive = false;
+
+        _img.DOKill();
+        _img.DOColor(_colors[3], _exit);
+        // _img.DOFade(0, 0);
     }
 
     private void OnDrawGizmos()

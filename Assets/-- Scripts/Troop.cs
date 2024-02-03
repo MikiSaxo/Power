@@ -34,15 +34,18 @@ public class Troop : MonoBehaviour
         }
         else
         {
-            CurrentCell.UpdateAllNeighbor(true, _troopInfos.MovementRange, _troopInfos.CanCrossSea, false);
+            CurrentCell.IsBlocked = true;
+            CurrentCell.UpdateAllNeighbor(true, _troopInfos.MovementRange, _troopInfos.CanCrossSea);
             Manager.Instance.UpdateTroopSelected(this);
         }
     }
 
-    private void DeselectTroop()
+    public void DeselectTroop()
     {
         Manager.Instance.ResetAllCells();
         Manager.Instance.UpdateTroopSelected(null);
+        IsSelected = false;
+        OnPointerExit();
     }
 
     public void MoveToNewCell(Cell newCell)

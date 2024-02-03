@@ -6,51 +6,55 @@ using UnityEngine.PlayerLoop;
 
 public class Manager : MonoBehaviour
 {
-   public static Manager Instance;
-   
-   [SerializeField] private List<Cell> _allCells = new List<Cell>();
+    public static Manager Instance;
 
-   public Troop CurrentTroopSelected { get; set; }
-   public Cell CurrentCellSelected { get; set; }
+    [SerializeField] private List<Cell> _allCells = new List<Cell>();
 
-   private void Awake()
-   {
-      Instance = this;
-   }
+    public Troop CurrentTroopSelected { get; set; }
+    public Cell CurrentCellSelected { get; set; }
 
-   public void UpdateAllCells(bool state)
-   {
-      foreach (var cell in _allCells)
-      {
-         cell.ForceUpdateViewCell(state);
-      }
-   }
+    private void Awake()
+    {
+        Instance = this;
+    }
 
-   public void UpdateTroopSelected(Troop newTroop)
-   {
-      CurrentTroopSelected = newTroop;
-   }
-   public void CheckMovementTroop(Cell newCell)
-   {
-      if (CurrentTroopSelected != null)
-      {
-         CurrentTroopSelected.MoveToNewCell(newCell);
-         CurrentTroopSelected = null;
-         ResetAllCells();
-      }
-   }
+    public void UpdateAllCells(bool state)
+    {
+        foreach (var cell in _allCells)
+        {
+            cell.ForceUpdateViewCell(state);
+        }
+    }
 
-   public void ResetAllCells()
-   {
-      foreach (var cell in _allCells)
-      {
-         cell.ForceUpdateViewCell(false);
-      }
-   }
+    public void UpdateTroopSelected(Troop newTroop)
+    {
+        CurrentTroopSelected = newTroop;
+    }
 
-   public void ResetAllSelected()
-   {
-      CurrentTroopSelected = null;
-      CurrentCellSelected = null;
-   }
+    public void CheckMovementTroop(Cell newCell)
+    {
+        if (CurrentTroopSelected != null)
+        {
+            ResetAllCells();
+            CurrentTroopSelected.MoveToNewCell(newCell);
+            CurrentTroopSelected = null;
+        }
+    }
+
+    public void ResetAllCells()
+    {
+        foreach (var cell in _allCells)
+        {
+            cell.ResetCell();
+        }
+    }
+
+    public void ResetAllSelected()
+    {
+        if(CurrentTroopSelected != null)
+            CurrentTroopSelected.DeselectTroop();
+            
+        CurrentTroopSelected = null;
+        CurrentCellSelected = null;
+    }
 }
