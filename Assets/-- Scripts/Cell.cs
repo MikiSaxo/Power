@@ -31,12 +31,19 @@ public class Cell : MonoBehaviour
     public void UpdateViewCell(bool state, bool canCrossSea)
     {
         if (canCrossSea == false && _isSea == true)
+        {
             return;
-        if (canCrossSea == true && _isFullLand == true)
-            return;
-        if (IsBlocked)
-            return;
+        }
 
+        if (canCrossSea == true && _isFullLand == true)
+        {
+            return;
+        }
+
+        if (IsBlocked)
+        {
+            return;
+        }
 
         ForceUpdateViewCell(state);
     }
@@ -60,9 +67,17 @@ public class Cell : MonoBehaviour
     public void UpdateAllNeighbor(bool state, int time, bool canCrossSea)
     {
         if (canCrossSea == false && _isSea == true)
+        {
             return;
+        }
+
         if (canCrossSea == true && _isFullLand == true)
+        {
             return;
+        }
+        
+        if (!IsBlocked)
+            UpdateViewCell(state, canCrossSea);
 
         time--;
         if (time > 0)

@@ -18,6 +18,7 @@ public class Manager : MonoBehaviour
         Instance = this;
     }
 
+    // Call for Mega Missile
     public void UpdateAllCells(bool state)
     {
         foreach (var cell in _allCells)

@@ -50,6 +50,10 @@ public class Troop : MonoBehaviour
 
     public void MoveToNewCell(Cell newCell)
     {
+        MultipleBallConnectorUI.Instance.ResetLine();
+        MultipleBallConnectorUI.Instance.AddBall(CurrentCell.gameObject.transform.position);
+        MultipleBallConnectorUI.Instance.AddBall(newCell.gameObject.transform.position);
+        
         CurrentCell = newCell;
         gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, 1, 1, 1f);
         IsSelected = false;
