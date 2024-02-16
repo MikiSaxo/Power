@@ -11,6 +11,7 @@ public class Troop : MonoBehaviour
     [SerializeField] private TroopInfos _troopInfos;
     [field: SerializeField] public Cell CurrentCell { get; set; }
     
+    [SerializeField] private LineConnector _lineConnector;
     [SerializeField] private Image _imgHighlighted;
     [SerializeField] private Color[] _colors;
     
@@ -20,6 +21,8 @@ public class Troop : MonoBehaviour
     [SerializeField] private float _click = .5f;
 
     public bool IsSelected { get; set; }
+
+    private Cell _lastCell;
 
     private void Start()
     {
@@ -50,10 +53,12 @@ public class Troop : MonoBehaviour
 
     public void MoveToNewCell(Cell newCell)
     {
-        MultipleBallConnectorUI.Instance.ResetLine();
-        MultipleBallConnectorUI.Instance.AddBall(CurrentCell.gameObject.transform.position);
-        MultipleBallConnectorUI.Instance.AddBall(newCell.gameObject.transform.position);
-        
+        // _lineConnector.ResetLine();
+        // _lineConnector.AddBall(CurrentCell.gameObject.transform.position);
+        // _lineConnector.AddBall(newCell.gameObject.transform.position);
+        _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,newCell.gameObject.transform.position);
+
+        _lastCell = CurrentCell;
         CurrentCell = newCell;
         gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, 1, 1, 1f);
         IsSelected = false;
