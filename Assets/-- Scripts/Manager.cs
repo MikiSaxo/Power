@@ -13,10 +13,26 @@ public class Manager : MonoBehaviour
     public Troop CurrentTroopSelected { get; set; }
     public Cell CurrentCellSelected { get; set; }
 
+    [SerializeField] private GameObject _troopsParent;
+    [SerializeField] private GameObject _troopPrefab;
+    [SerializeField] private TroopInfos[] _troopAllInfos;
+    [SerializeField] private int[] _troopStartInfos;
+    [SerializeField] private Cell[] _cellHQ_BYRG;
+    
     private void Awake()
     {
         Instance = this;
     }
+
+    private void Start()
+    {
+        foreach (var index in _troopStartInfos)
+        {
+            GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
+            go.GetComponent<Troop>().InitTroop(_troopAllInfos[index], 0, _cellHQ_BYRG[0]);
+        }
+    }
+
 
     // Call for Mega Missile
     public void UpdateAllCells(bool state)

@@ -32,13 +32,16 @@ public class Troop : MonoBehaviour
 
     private void Start()
     {
-       InitTroop(_troopInfos,0);
     }
 
-    public void InitTroop(TroopInfos troopInfos, int colorIndex)
+    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell)
     {
+        // print(troopInfos.name);
+        _troopInfos = troopInfos;
         _troopImg.sprite = troopInfos.TroopSprite;
         _troopImg.color = _troopColors[colorIndex];
+        CurrentCell = startCell;
+        gameObject.transform.position = CurrentCell.transform.position;
     }
 
     private void SelectTroop()
