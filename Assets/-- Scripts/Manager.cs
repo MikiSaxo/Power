@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -8,17 +10,25 @@ public class Manager : MonoBehaviour
 {
     public static Manager Instance;
 
+    [Header("----- Cells -----")]
     [SerializeField] private List<Cell> _allCells = new List<Cell>();
-
-    public Troop CurrentTroopSelected { get; set; }
-    public Cell CurrentCellSelected { get; set; }
-
+    [SerializeField] private Cell[] _cellHQ_BYRG;
+    
+    [Header("----- Troops -----")]
     [SerializeField] private GameObject _troopsParent;
     [SerializeField] private GameObject _troopPrefab;
     [SerializeField] private TroopInfos[] _troopAllInfos;
     [SerializeField] private int[] _troopStartInfos;
-    [SerializeField] private Cell[] _cellHQ_BYRG;
 
+    [Header("----- Player UI -----")]
+    [SerializeField] private TMP_Text _textMyColor;
+    [SerializeField] private Color[] _colorsText;
+
+    public Colors MyColor { get; set; }
+    public Troop CurrentTroopSelected { get; set; }
+    public Cell CurrentCellSelected { get; set; }
+
+    
     private List<GameObject> _allTroopObj = new List<GameObject>();
 
     private void Awake()
@@ -37,12 +47,15 @@ public class Manager : MonoBehaviour
                 _allTroopObj.Add(go);
             }
         }
-        // foreach (var index in _troopStartInfos)
-        // {
-        //     GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
-        //     go.GetComponent<Troop>().InitTroop(_troopAllInfos[index], 0, _cellHQ_BYRG[0]);
-        //     _allTroopObj.Add(go);
-        // }
+
+        SetMyColor(Colors.Green);
+    }
+
+    public void SetMyColor(Colors color)
+    {
+        MyColor = color;
+        _textMyColor.text = $"You are {MyColor}";
+        _textMyColor.color = _colorsText[(int)MyColor];
     }
 
     public void RecenterTroops()

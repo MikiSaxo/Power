@@ -294,6 +294,7 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 0, a: 1}
   - {r: 1, g: 0.25, b: 0.25, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
+  _myColor: -1
   _imgHighlighted: {fileID: 7472747981231374743}
   _highlightedColors:
   - {r: 1, g: 1, b: 1, a: 0}

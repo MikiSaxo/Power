@@ -9,26 +9,30 @@ using UnityEngine.UI;
 public class Troop : MonoBehaviour
 {
     [field: SerializeField] public Cell CurrentCell { get; set; }
-    
+
     [SerializeField] private LineConnector _lineConnector;
-    
-    [Header("--- Troops ---")]
-    [SerializeField] private TroopInfos _troopInfos;
+
+    [Header("--- Troops ---")] [SerializeField]
+    private TroopInfos _troopInfos;
+
     [SerializeField] private Image _troopImg;
     [SerializeField] private Color[] _troopColors;
-    
-    [Header("--- Highlight ---")]
-    [SerializeField] private Image _imgHighlighted;
+    [SerializeField] private Colors _myColor;
+
+    [Header("--- Highlight ---")] [SerializeField]
+    private Image _imgHighlighted;
+
     [SerializeField] private Color[] _highlightedColors;
-    
-    [Header("--- Timings ---")]
-    [SerializeField] private float _enter = .5f;
+
+    [Header("--- Timings ---")] [SerializeField]
+    private float _enter = .5f;
+
     [SerializeField] private float _exit = .5f;
     [SerializeField] private float _click = .5f;
 
     public float _cellDistance;
     public float _cellDistanceMax = .4f;
-    
+
     public bool IsSelected { get; set; }
 
     private Cell _lastCell;
@@ -46,13 +50,13 @@ public class Troop : MonoBehaviour
         _troopImg.color = _troopColors[colorIndex];
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell._startPoints[indexPosCell].position;
+        _myColor = (Colors)colorIndex;
 
         _isAtStart = true;
     }
 
     private void Update()
     {
-        
     }
 
     private void SelectTroop()
@@ -82,18 +86,20 @@ public class Troop : MonoBehaviour
         // _lineConnector.ResetLine();
         // _lineConnector.AddBall(CurrentCell.gameObject.transform.position);
         // _lineConnector.AddBall(newCell.gameObject.transform.position);
-        _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,newCell.gameObject.transform.position);
+        _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,
+            newCell.gameObject.transform.position);
 
         _isAtStart = false;
         _lastCell = CurrentCell;
         CurrentCell = newCell;
-        
+
         var distance = Vector3.Distance(gameObject.transform.position, CurrentCell.gameObject.transform.position);
         int nbJump = (int)distance;
         if (nbJump < 1)
             nbJump = 1;
-        
-        gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, distance* .1f, nbJump, .25f * nbJump).OnComplete(Manager.Instance.RecenterTroops);
+
+        gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, distance * .1f, nbJump, .25f * nbJump)
+            .OnComplete(Manager.Instance.RecenterTroops);
         IsSelected = false;
         OnPointerExit();
     }
@@ -101,7 +107,7 @@ public class Troop : MonoBehaviour
     public void ArrivedToNewCell()
     {
         if (_isAtStart) return;
-        
+
         _cellDistance = Vector3.Distance(gameObject.transform.position, CurrentCell.gameObject.transform.position);
 
         if (_cellDistance > _cellDistanceMax)
@@ -111,8 +117,34 @@ public class Troop : MonoBehaviour
             // _lineConnector.LinkLineRenderer(_lastCell.gameObject.transform.position, gameObject.transform.position);
         }
     }
-    
+
+    private void GoToOldCell()
+    {
+        _lineConnector.ResetLine();
+        
+        CurrentCell = _lastCell;
+        _lastCell = null;
+        gameObject.transform.DOMove(CurrentCell.gameObject.transform.position, 1f);
+
+        IsSelected = false;
+        OnPointerExit();
+    }
+
     public void OnPointerClick()
+    {
+        if (Manager.Instance.MyColor != _myColor) return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            PointerLeftClick();
+        }
+        else
+        {
+            PointerRightClick();
+        }
+    }
+
+    private void PointerLeftClick()
     {
         if (!IsSelected)
         {
@@ -128,9 +160,17 @@ public class Troop : MonoBehaviour
         }
     }
 
+    private void PointerRightClick()
+    {
+        if (_lastCell == null) return;
+        
+        GoToOldCell();
+    }
+
     public void OnPointerEnter()
     {
         if (IsSelected) return;
+        if (Manager.Instance.MyColor != _myColor) return;
 
         _imgHighlighted.DOColor(_highlightedColors[1], _enter);
     }
@@ -138,6 +178,7 @@ public class Troop : MonoBehaviour
     public void OnPointerExit()
     {
         if (IsSelected) return;
+        if (Manager.Instance.MyColor != _myColor) return;
 
         _imgHighlighted.DOColor(_highlightedColors[0], _exit);
     }
