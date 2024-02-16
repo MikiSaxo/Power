@@ -63,9 +63,9 @@ public class Troop : MonoBehaviour
         }
         else
         {
+            Manager.Instance.UpdateTroopSelected(this);
             CurrentCell.IsBlocked = true;
             CurrentCell.UpdateAllNeighbor(true, _troopInfos.MovementRange, _troopInfos.CanCrossSea);
-            Manager.Instance.UpdateTroopSelected(this);
         }
     }
 

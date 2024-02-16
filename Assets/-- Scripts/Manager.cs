@@ -64,6 +64,13 @@ public class Manager : MonoBehaviour
 
     public void UpdateTroopSelected(Troop newTroop)
     {
+        if (CurrentTroopSelected != null)
+        {
+            ResetAllCells();
+            CurrentTroopSelected.IsSelected = false;
+            CurrentTroopSelected.OnPointerExit();
+        }
+        
         CurrentTroopSelected = newTroop;
     }
 
