@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
@@ -23,13 +24,16 @@ public class Manager : MonoBehaviour
     [Header("----- Player UI -----")]
     [SerializeField] private TMP_Text _textMyColor;
     [SerializeField] private Color[] _colorsText;
+    [SerializeField] private TMP_Text _textOrderLeft;
 
     public Colors MyColor { get; set; }
+    public int OrdersDone { get; private set; }
     public Troop CurrentTroopSelected { get; set; }
     public Cell CurrentCellSelected { get; set; }
 
-    
     private List<GameObject> _allTroopObj = new List<GameObject>();
+    
+    const int MaxOrdersDone = 1;
 
     private void Awake()
     {
@@ -48,7 +52,7 @@ public class Manager : MonoBehaviour
             }
         }
 
-        SetMyColor(Colors.Green);
+        SetMyColor(Colors.Blue);
     }
 
     public void SetMyColor(Colors color)
@@ -66,14 +70,37 @@ public class Manager : MonoBehaviour
         }
     }
 
-    // Call for Mega Missile
-    public void UpdateAllCells(bool state)
+    public bool CanAddNewOrder()
+    {
+        if (OrdersDone >= MaxOrdersDone)
+        {
+            FeedbackCantDoMoreOrders();
+            return false;
+        }
+        
+        return true;
+    }
+
+    public void UpdateOrdersLeft(bool isAdding)
+    {
+        if (isAdding)
+            OrdersDone++;
+        else
+            OrdersDone--;
+
+        if (OrdersDone < 0)
+            OrdersDone = 0;
+        
+        _textOrderLeft.text = $"Orders Left : {OrdersDone}/5";
+    }
+
+    public void UpdateAllCells(bool state) // Call for Mega Missile
     {
         foreach (var cell in _allCells)
         {
             cell.ForceUpdateViewCell(state);
         }
-    }
+    } 
 
     public void UpdateTroopSelected(Troop newTroop)
     {
@@ -95,6 +122,16 @@ public class Manager : MonoBehaviour
             CurrentTroopSelected.MoveToNewCell(newCell);
             CurrentTroopSelected = null;
         }
+    }
+    
+    public void FeedbackCantDoMoreOrders()
+    {
+        _textOrderLeft.gameObject.transform.DOComplete();
+        _textOrderLeft.DOComplete();
+        
+        _textOrderLeft.gameObject.transform.DOPunchPosition(Vector3.one * 5, 1);
+        _textOrderLeft.gameObject.transform.DOPunchRotation(Vector3.one, 1);
+        _textOrderLeft.DOColor(Color.red, .25f).SetLoops(2, LoopType.Yoyo);
     }
 
     public void ResetAllCells()

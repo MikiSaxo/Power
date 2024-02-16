@@ -102,6 +102,8 @@ public class Troop : MonoBehaviour
             .OnComplete(Manager.Instance.RecenterTroops);
         IsSelected = false;
         OnPointerExit();
+        
+        Manager.Instance.UpdateOrdersLeft(true);
     }
 
     public void ArrivedToNewCell()
@@ -124,10 +126,13 @@ public class Troop : MonoBehaviour
         
         CurrentCell = _lastCell;
         _lastCell = null;
+        gameObject.transform.DOKill();
         gameObject.transform.DOMove(CurrentCell.gameObject.transform.position, 1f);
 
         IsSelected = false;
         OnPointerExit();
+
+        Manager.Instance.UpdateOrdersLeft(false);
     }
 
     public void OnPointerClick()
@@ -136,6 +141,8 @@ public class Troop : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (!Manager.Instance.CanAddNewOrder()) return;
+            
             PointerLeftClick();
         }
         else
