@@ -26,6 +26,9 @@ public class Troop : MonoBehaviour
     [SerializeField] private float _exit = .5f;
     [SerializeField] private float _click = .5f;
 
+    public float _cellDistance;
+    public float _cellDistanceMax = .4f;
+    
     public bool IsSelected { get; set; }
 
     private Cell _lastCell;
@@ -42,6 +45,11 @@ public class Troop : MonoBehaviour
         _troopImg.color = _troopColors[colorIndex];
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell.transform.position;
+    }
+
+    private void Update()
+    {
+        
     }
 
     private void SelectTroop()
@@ -75,9 +83,27 @@ public class Troop : MonoBehaviour
 
         _lastCell = CurrentCell;
         CurrentCell = newCell;
-        gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, 1, 1, 1f);
+        
+        var distance = Vector3.Distance(gameObject.transform.position, CurrentCell.gameObject.transform.position);
+        int nbJump = (int)distance;
+        if (nbJump < 1)
+            nbJump = 1;
+        
+        gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, distance* .1f, nbJump, .25f * nbJump).OnComplete(Manager.Instance.RecenterTroops);
         IsSelected = false;
         OnPointerExit();
+    }
+
+    public void ArrivedToNewCell()
+    {
+        _cellDistance = Vector3.Distance(gameObject.transform.position, CurrentCell.gameObject.transform.position);
+
+        if (_cellDistance > _cellDistanceMax)
+        {
+            Vector2 force = CurrentCell.gameObject.transform.position - gameObject.transform.position;
+            gameObject.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
+            // _lineConnector.LinkLineRenderer(_lastCell.gameObject.transform.position, gameObject.transform.position);
+        }
     }
     
     public void OnPointerClick()
