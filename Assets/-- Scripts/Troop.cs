@@ -51,6 +51,11 @@ public class Troop : MonoBehaviour
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell._startPoints[indexPosCell].position;
         _myColor = (Colors)colorIndex;
+        
+        _troopImg.SetNativeSize();
+
+        if (_myColor == Colors.Red || _myColor == Colors.Green)
+            _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
     }

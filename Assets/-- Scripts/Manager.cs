@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class Manager : MonoBehaviour
     [SerializeField] private Color[] _colorsText;
     [SerializeField] private TMP_Text _textOrderLeft;
 
+    [Header("----- Reserves -----")]
+    [SerializeField] private GameObject[] _reserves;
+    [SerializeField] private Color[] _colorsReserves;
+    
     public Colors MyColor { get; set; }
     public int OrdersDone { get; private set; }
     public Troop CurrentTroopSelected { get; set; }
@@ -33,7 +38,7 @@ public class Manager : MonoBehaviour
 
     private List<GameObject> _allTroopObj = new List<GameObject>();
     
-    const int MaxOrdersDone = 1;
+    const int MaxOrdersDone = 5;
 
     private void Awake()
     {
@@ -53,13 +58,28 @@ public class Manager : MonoBehaviour
         }
 
         SetMyColor(Colors.Blue);
+        SetReserve();
     }
 
-    public void SetMyColor(Colors color)
+    private void SetMyColor(Colors color)
     {
         MyColor = color;
         _textMyColor.text = $"You are {MyColor}";
         _textMyColor.color = _colorsText[(int)MyColor];
+    }
+
+    private void SetReserve()
+    {
+        _reserves[0].GetComponentInChildren<Image>().color = _colorsReserves[(int)MyColor];
+        
+        List<Colors> availableColors = new List<Colors> { Colors.Blue, Colors.Yellow, Colors.Red, Colors.Green };
+        availableColors.Remove(MyColor);
+
+        for (int i = 1; i < _reserves.Length; i++)
+        {
+            var colorIndex = i - 1;
+            _reserves[i].GetComponentInChildren<Image>().color = _colorsReserves[(int)availableColors[colorIndex]];
+        }
     }
 
     public void RecenterTroops()
