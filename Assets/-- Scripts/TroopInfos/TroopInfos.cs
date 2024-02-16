@@ -11,4 +11,5 @@ public class TroopInfos : ScriptableObject
     [field: SerializeField] public int Power { get; set; }
     
     [field: SerializeField] public bool CanCrossSea { get; set; }
+    [field: SerializeField] public Sprite TroopSprite { get; set; }
 }

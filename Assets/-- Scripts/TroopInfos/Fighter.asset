@@ -16,3 +16,4 @@ MonoBehaviour:
   <MovementRange>k__BackingField: 5
   <Power>k__BackingField: 5
   <CanCrossSea>k__BackingField: 0
+  <TroopSprite>k__BackingField: {fileID: 21300000, guid: a1746bce2c317774d92878a3288ce5c3, type: 3}

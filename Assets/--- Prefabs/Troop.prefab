@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1a81fe7b91bb74e8ee8f9fa8758bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePrefab: {fileID: 3700759221788079901}
   _lineRenderer: {fileID: 8169185039937512996}
 --- !u!120 &8169185039937512996
 LineRenderer:
@@ -284,11 +283,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b263062033b1a4b8d6ff011461d8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _troopInfos: {fileID: 11400000, guid: 573bd1925565fbc4980ee13572451156, type: 2}
   <CurrentCell>k__BackingField: {fileID: 0}
   _lineConnector: {fileID: 3375845102066275749}
+  _troopInfos: {fileID: 11400000, guid: e494d186916df3b418c78c0c944106d1, type: 2}
+  _troopImg: {fileID: 6302563887269922219}
+  _troopColors:
+  - {r: 0.2028302, g: 0.49238637, b: 1, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.25, b: 0.25, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
   _imgHighlighted: {fileID: 7472747981231374743}
-  _colors:
+  _highlightedColors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
@@ -476,7 +481,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50.45, y: 50.45}
+  m_SizeDelta: {x: 80, y: 54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4014259734354614864
 CanvasRenderer:
@@ -506,8 +511,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -391912432, guid: ea8bea77e70ede043b05856b7ce7a5fb, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6807edb0bcfe94c47b5f2df92feb389b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

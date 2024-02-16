@@ -8,12 +8,18 @@ using UnityEngine.UI;
 
 public class Troop : MonoBehaviour
 {
-    [SerializeField] private TroopInfos _troopInfos;
     [field: SerializeField] public Cell CurrentCell { get; set; }
     
     [SerializeField] private LineConnector _lineConnector;
+    
+    [Header("--- Troops ---")]
+    [SerializeField] private TroopInfos _troopInfos;
+    [SerializeField] private Image _troopImg;
+    [SerializeField] private Color[] _troopColors;
+    
+    [Header("--- Highlight ---")]
     [SerializeField] private Image _imgHighlighted;
-    [SerializeField] private Color[] _colors;
+    [SerializeField] private Color[] _highlightedColors;
     
     [Header("--- Timings ---")]
     [SerializeField] private float _enter = .5f;
@@ -26,7 +32,13 @@ public class Troop : MonoBehaviour
 
     private void Start()
     {
-       
+       InitTroop(_troopInfos,0);
+    }
+
+    public void InitTroop(TroopInfos troopInfos, int colorIndex)
+    {
+        _troopImg.sprite = troopInfos.TroopSprite;
+        _troopImg.color = _troopColors[colorIndex];
     }
 
     private void SelectTroop()
@@ -70,7 +82,7 @@ public class Troop : MonoBehaviour
         if (!IsSelected)
         {
             IsSelected = true;
-            _imgHighlighted.DOColor(_colors[2], _click);
+            _imgHighlighted.DOColor(_highlightedColors[2], _click);
             SelectTroop();
         }
         else
@@ -85,14 +97,14 @@ public class Troop : MonoBehaviour
     {
         if (IsSelected) return;
 
-        _imgHighlighted.DOColor(_colors[1], _enter);
+        _imgHighlighted.DOColor(_highlightedColors[1], _enter);
     }
 
     public void OnPointerExit()
     {
         if (IsSelected) return;
 
-        _imgHighlighted.DOColor(_colors[0], _exit);
+        _imgHighlighted.DOColor(_highlightedColors[0], _exit);
     }
 }
 
