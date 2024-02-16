@@ -32,19 +32,22 @@ public class Troop : MonoBehaviour
     public bool IsSelected { get; set; }
 
     private Cell _lastCell;
+    private bool _isAtStart;
 
     private void Start()
     {
     }
 
-    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell)
+    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int indexPosCell)
     {
         // print(troopInfos.name);
         _troopInfos = troopInfos;
         _troopImg.sprite = troopInfos.TroopSprite;
         _troopImg.color = _troopColors[colorIndex];
         CurrentCell = startCell;
-        gameObject.transform.position = CurrentCell.transform.position;
+        gameObject.transform.position = CurrentCell._startPoints[indexPosCell].position;
+
+        _isAtStart = true;
     }
 
     private void Update()
@@ -81,6 +84,7 @@ public class Troop : MonoBehaviour
         // _lineConnector.AddBall(newCell.gameObject.transform.position);
         _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,newCell.gameObject.transform.position);
 
+        _isAtStart = false;
         _lastCell = CurrentCell;
         CurrentCell = newCell;
         
@@ -96,6 +100,8 @@ public class Troop : MonoBehaviour
 
     public void ArrivedToNewCell()
     {
+        if (_isAtStart) return;
+        
         _cellDistance = Vector3.Distance(gameObject.transform.position, CurrentCell.gameObject.transform.position);
 
         if (_cellDistance > _cellDistanceMax)

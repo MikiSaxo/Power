@@ -18,11 +18,13 @@ public class Cell : MonoBehaviour
 
     [SerializeField] private Color[] _colors;
 
-    [Header("--- Timings ---")] [SerializeField]
-    private float _enter = .5f;
-
+    [Header("--- Timings ---")] 
+    [SerializeField] private float _enter = .5f;
     [SerializeField] private float _exit = .5f;
     [SerializeField] private float _click = .5f;
+    
+    // [Header("--- Start Point HQ ---")] 
+    [field: SerializeField] public Transform[] _startPoints { get; set; }
 
     public bool IsBlocked { get; set; }
 

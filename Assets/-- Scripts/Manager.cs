@@ -20,7 +20,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private Cell[] _cellHQ_BYRG;
 
     private List<GameObject> _allTroopObj = new List<GameObject>();
-    
+
     private void Awake()
     {
         Instance = this;
@@ -28,12 +28,21 @@ public class Manager : MonoBehaviour
 
     private void Start()
     {
-        foreach (var index in _troopStartInfos)
+        for (int j = 0; j < 4; j++)
         {
-            GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
-            go.GetComponent<Troop>().InitTroop(_troopAllInfos[index], 0, _cellHQ_BYRG[0]);
-            _allTroopObj.Add(go);
+            for (int i = 0; i < _troopStartInfos.Length; i++)
+            {
+                GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
+                go.GetComponent<Troop>().InitTroop(_troopAllInfos[_troopStartInfos[i]], j, _cellHQ_BYRG[j], i);
+                _allTroopObj.Add(go);
+            }
         }
+        // foreach (var index in _troopStartInfos)
+        // {
+        //     GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
+        //     go.GetComponent<Troop>().InitTroop(_troopAllInfos[index], 0, _cellHQ_BYRG[0]);
+        //     _allTroopObj.Add(go);
+        // }
     }
 
     public void RecenterTroops()
@@ -78,9 +87,9 @@ public class Manager : MonoBehaviour
 
     public void ResetAllSelected()
     {
-        if(CurrentTroopSelected != null)
+        if (CurrentTroopSelected != null)
             CurrentTroopSelected.DeselectTroop();
-            
+
         CurrentTroopSelected = null;
         CurrentCellSelected = null;
     }
