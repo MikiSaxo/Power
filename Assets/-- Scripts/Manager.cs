@@ -70,6 +70,7 @@ public class Manager : MonoBehaviour
 
     private void SetReserve()
     {
+        // Prévoir un script réserve ou une list/dico pour savoir quelle réserve appartient à quelle couleur
         _reserves[0].GetComponentInChildren<Image>().color = _colorsReserves[(int)MyColor];
         
         List<Colors> availableColors = new List<Colors> { Colors.Blue, Colors.Yellow, Colors.Red, Colors.Green };
