@@ -33,6 +33,7 @@ public class Troop : MonoBehaviour
 
     private Cell _lastCell;
     private bool _isAtStart;
+    private bool _isAtReserve;
 
     private void Start()
     {
@@ -44,6 +45,7 @@ public class Troop : MonoBehaviour
         _troopInfos = troopInfos;
         _troopImg.sprite = troopInfos.TroopSprite;
         _troopImg.color = Manager.Instance.PawnColors[colorIndex];
+        
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell._startPoints[indexPosCell].position;
         _myColor = (Colors)colorIndex;
@@ -54,6 +56,24 @@ public class Troop : MonoBehaviour
             _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
+    }
+
+    public void InitTroopReserve(TroopInfos troopInfos, int colorIndex, Transform reservePos)
+    {
+        _troopInfos = troopInfos;
+        _troopImg.sprite = troopInfos.TroopSprite;
+        _troopImg.color = Manager.Instance.PawnColors[colorIndex];
+        
+        gameObject.transform.position = reservePos.position;
+        _myColor = (Colors)colorIndex;
+        
+        _troopImg.SetNativeSize();
+
+        if (_myColor == Colors.Red || _myColor == Colors.Green)
+            _troopImg.transform.localScale = new Vector3(-1, 1, 1);
+
+        _isAtStart = true;
+        _isAtReserve = true;
     }
     
 
