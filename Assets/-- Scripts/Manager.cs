@@ -25,21 +25,23 @@ public class Manager : MonoBehaviour
     [Header("----- Player UI -----")]
     [SerializeField] private TMP_Text _textMyColor;
     [SerializeField] private Color[] _colorsText;
-    [SerializeField] private TMP_Text _textOrderLeft;
 
     [Header("----- Reserves -----")]
     [SerializeField] private GameObject[] _reserves;
     [SerializeField] private Color[] _colorsReserves;
+
+    [Header("----- Colors -----")] 
+    public Color[] PawnColors;
     
+
     public Colors MyColor { get; set; }
-    public int OrdersDone { get; private set; }
     public Troop CurrentTroopSelected { get; set; }
     public Cell CurrentCellSelected { get; set; }
 
-    private List<GameObject> _allTroopObj = new List<GameObject>();
-    
-    const int MaxOrdersDone = 5;
+    public List<GameObject> AllTroopObj { get; set; } = new List<GameObject>();
+    public List<Troop> AllTroop { get; set; } = new List<Troop>();
 
+    
     private void Awake()
     {
         Instance = this;
@@ -47,18 +49,30 @@ public class Manager : MonoBehaviour
 
     private void Start()
     {
+        InitTroops();
+
+        SetMyColor(Colors.Blue);
+        
+        SetReserve();
+    }
+
+    private void InitTroops()
+    {
         for (int j = 0; j < 4; j++)
         {
             for (int i = 0; i < _troopStartInfos.Length; i++)
             {
                 GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
                 go.GetComponent<Troop>().InitTroop(_troopAllInfos[_troopStartInfos[i]], j, _cellHQ_BYRG[j], i);
-                _allTroopObj.Add(go);
+                AddNewTroop(go);
             }
         }
+    }
 
-        SetMyColor(Colors.Blue);
-        SetReserve();
+    public void AddNewTroop(GameObject newTroop)
+    {
+        AllTroopObj.Add(newTroop);
+        AllTroop.Add(newTroop.GetComponent<Troop>());
     }
 
     private void SetMyColor(Colors color)
@@ -85,34 +99,10 @@ public class Manager : MonoBehaviour
 
     public void RecenterTroops()
     {
-        foreach (var troop in _allTroopObj)
+        foreach (var troop in AllTroopObj)
         {
             troop.GetComponent<Troop>().ArrivedToNewCell();
         }
-    }
-
-    public bool CanAddNewOrder()
-    {
-        if (OrdersDone >= MaxOrdersDone)
-        {
-            FeedbackCantDoMoreOrders();
-            return false;
-        }
-        
-        return true;
-    }
-
-    public void UpdateOrdersLeft(bool isAdding)
-    {
-        if (isAdding)
-            OrdersDone++;
-        else
-            OrdersDone--;
-
-        if (OrdersDone < 0)
-            OrdersDone = 0;
-        
-        _textOrderLeft.text = $"Orders Left : {OrdersDone}/5";
     }
 
     public void UpdateAllCells(bool state) // Call for Mega Missile
@@ -145,16 +135,6 @@ public class Manager : MonoBehaviour
         }
     }
     
-    public void FeedbackCantDoMoreOrders()
-    {
-        _textOrderLeft.gameObject.transform.DOComplete();
-        _textOrderLeft.DOComplete();
-        
-        _textOrderLeft.gameObject.transform.DOPunchPosition(Vector3.one * 5, 1);
-        _textOrderLeft.gameObject.transform.DOPunchRotation(Vector3.one, 1);
-        _textOrderLeft.DOColor(Color.red, .25f).SetLoops(2, LoopType.Yoyo);
-    }
-
     public void ResetAllCells()
     {
         foreach (var cell in _allCells)
@@ -170,5 +150,10 @@ public class Manager : MonoBehaviour
 
         CurrentTroopSelected = null;
         CurrentCellSelected = null;
+    }
+
+    public GameObject[] GetReserves()
+    {
+        return _reserves;
     }
 }

@@ -102,22 +102,10 @@ public class Cell : MonoBehaviour
     {
         if (!_isActive)
         {
-            //Manager.Instance.ResetAllSelected();
             return;
         }
 
         Manager.Instance.CheckMovementTroop(this);
-
-        // if (!IsSelected)
-        // {
-        //     IsSelected = true;
-        //     _img.DOColor(_colors[2], _click);
-        // }
-        // else
-        // {
-        //     IsSelected = false;
-        //     OnPointerExit();
-        // }
     }
 
     public void OnPointerEnter()
@@ -143,7 +131,6 @@ public class Cell : MonoBehaviour
 
         _img.DOKill();
         _img.DOColor(_colors[3], _exit);
-        // _img.DOFade(0, 0);
     }
 
     private void OnDrawGizmos()

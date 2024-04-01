@@ -12,21 +12,17 @@ public class Troop : MonoBehaviour
 
     [SerializeField] private LineConnector _lineConnector;
 
-    [Header("--- Troops ---")] [SerializeField]
-    private TroopInfos _troopInfos;
-
+    [Header("--- Troops ---")] 
+    [SerializeField] private TroopInfos _troopInfos;
     [SerializeField] private Image _troopImg;
-    [SerializeField] private Color[] _troopColors;
     [SerializeField] private Colors _myColor;
 
-    [Header("--- Highlight ---")] [SerializeField]
-    private Image _imgHighlighted;
-
+    [Header("--- Highlight ---")] 
+    [SerializeField] private Image _imgHighlighted;
     [SerializeField] private Color[] _highlightedColors;
 
-    [Header("--- Timings ---")] [SerializeField]
-    private float _enter = .5f;
-
+    [Header("--- Timings ---")] 
+    [SerializeField] private float _enter = .5f;
     [SerializeField] private float _exit = .5f;
     [SerializeField] private float _click = .5f;
 
@@ -47,7 +43,7 @@ public class Troop : MonoBehaviour
         // print(troopInfos.name);
         _troopInfos = troopInfos;
         _troopImg.sprite = troopInfos.TroopSprite;
-        _troopImg.color = _troopColors[colorIndex];
+        _troopImg.color = Manager.Instance.PawnColors[colorIndex];
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell._startPoints[indexPosCell].position;
         _myColor = (Colors)colorIndex;
@@ -59,10 +55,7 @@ public class Troop : MonoBehaviour
 
         _isAtStart = true;
     }
-
-    private void Update()
-    {
-    }
+    
 
     private void SelectTroop()
     {
@@ -91,6 +84,7 @@ public class Troop : MonoBehaviour
         // _lineConnector.ResetLine();
         // _lineConnector.AddBall(CurrentCell.gameObject.transform.position);
         // _lineConnector.AddBall(newCell.gameObject.transform.position);
+        
         _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,
             newCell.gameObject.transform.position);
 
@@ -108,7 +102,7 @@ public class Troop : MonoBehaviour
         IsSelected = false;
         OnPointerExit();
         
-        Manager.Instance.UpdateOrdersLeft(true);
+        OrdersManager.Instance.UpdateOrdersLeft(true);
     }
 
     public void ArrivedToNewCell()
@@ -127,7 +121,7 @@ public class Troop : MonoBehaviour
 
     private void GoToOldCell()
     {
-        _lineConnector.ResetLine();
+        ResetLineConnector();
         
         CurrentCell = _lastCell;
         _lastCell = null;
@@ -137,7 +131,7 @@ public class Troop : MonoBehaviour
         IsSelected = false;
         OnPointerExit();
 
-        Manager.Instance.UpdateOrdersLeft(false);
+        OrdersManager.Instance.UpdateOrdersLeft(false);
     }
 
     public void OnPointerClick()
@@ -146,7 +140,7 @@ public class Troop : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (!Manager.Instance.CanAddNewOrder()) return;
+            if (!OrdersManager.Instance.CanAddNewOrder()) return;
             
             PointerLeftClick();
         }
@@ -193,6 +187,19 @@ public class Troop : MonoBehaviour
         if (Manager.Instance.MyColor != _myColor) return;
 
         _imgHighlighted.DOColor(_highlightedColors[0], _exit);
+    }
+
+    public bool IsMyCellEnemyColor()
+    {
+        if (CurrentCell.CellColor == Colors.Neutral)
+            return false;
+        
+        return CurrentCell.CellColor != _myColor;
+    }
+    
+    public void ResetLineConnector()
+    {
+        _lineConnector.ResetLine();
     }
 }
 
