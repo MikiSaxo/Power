@@ -49,7 +49,7 @@ public class PlayerIOScript : MonoBehaviour
 
     private void AddFunctions()
     {
-        _functions.Add("MOVE", new MoveC2S());
+       // _functions.Add("MOVE", new MoveC2S());
     }
     void MasterServerJoined(Client client)
     {
