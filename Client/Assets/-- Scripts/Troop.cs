@@ -30,6 +30,8 @@ public class Troop : MonoBehaviour
     public float _cellDistanceMax = .4f;
 
     public bool IsSelected { get; set; }
+    public bool HasMoved { get; set; }
+    public int ID { get; set; }
 
     private Cell _lastCell;
     private bool _isAtStart;
@@ -39,15 +41,16 @@ public class Troop : MonoBehaviour
     {
     }
 
-    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int indexPosCell)
+    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int indexPosCell, int id)
     {
         // print(troopInfos.name);
         _troopInfos = troopInfos;
         _troopImg.sprite = troopInfos.TroopSprite;
         _troopImg.color = Manager.Instance.PawnColors[colorIndex];
+        ID = id;
         
         CurrentCell = startCell;
-        gameObject.transform.position = CurrentCell._startPoints[indexPosCell].position;
+        gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
         _myColor = (Colors)colorIndex;
         
         _troopImg.SetNativeSize();
@@ -105,6 +108,8 @@ public class Troop : MonoBehaviour
         // _lineConnector.AddBall(CurrentCell.gameObject.transform.position);
         // _lineConnector.AddBall(newCell.gameObject.transform.position);
         
+        HasMoved = true;
+        
         _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,
             newCell.gameObject.transform.position);
 
@@ -161,7 +166,8 @@ public class Troop : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (!OrdersManager.Instance.CanAddNewOrder()) return;
-            
+            if (HasMoved) return;
+
             PointerLeftClick();
         }
         else
@@ -189,6 +195,8 @@ public class Troop : MonoBehaviour
     private void PointerRightClick()
     {
         if (_lastCell == null) return;
+
+        HasMoved = false;
         
         GoToOldCell();
     }

@@ -41,7 +41,7 @@ public class ReserveManager : MonoBehaviour
             GameObject go = Instantiate(_powerPrefab, transform);
             var power = go.GetComponent<Power>();
             
-            power.InitAnim(0, _reserves[0].GetComponent<Reserve>());
+            power.InitAnim(1, _reserves[1].GetComponent<Reserve>());
             go.transform.DOPunchScale(Vector3.one, power.TimePunchScale);
             yield return new WaitForSeconds(power.TimePunchScale);
             power.JumpToReserve();

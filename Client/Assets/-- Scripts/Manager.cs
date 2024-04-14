@@ -41,6 +41,8 @@ public class Manager : MonoBehaviour
     public List<GameObject> AllTroopObj { get; set; } = new List<GameObject>();
     public List<Troop> AllTroop { get; set; } = new List<Troop>();
 
+    private int _countID;
+
     
     private void Awake()
     {
@@ -56,6 +58,15 @@ public class Manager : MonoBehaviour
         SetReserve();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log("j'ai appuyé sur o");
+            PlayerIOScript.Instance.Pioconnection.Send("MOVE", 1, 2 ,5 ,10);
+        }
+    }
+
     private void InitTroops()
     {
         for (int j = 0; j < 4; j++)
@@ -63,8 +74,9 @@ public class Manager : MonoBehaviour
             for (int i = 0; i < _troopStartInfos.Length; i++)
             {
                 GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
-                go.GetComponent<Troop>().InitTroop(_troopAllInfos[_troopStartInfos[i]], j, _cellHQ_BYRG[j], i);
+                go.GetComponent<Troop>().InitTroop(_troopAllInfos[_troopStartInfos[i]], j, _cellHQ_BYRG[j], i, _countID);
                 AddNewTroop(go);
+                _countID++;
             }
         }
     }
@@ -134,6 +146,11 @@ public class Manager : MonoBehaviour
             CurrentTroopSelected = null;
         }
     }
+
+    public void ChangeColor(int color)
+    {
+        MyColor = (Colors)color;
+    }
     
     public void ResetAllCells()
     {
@@ -150,6 +167,14 @@ public class Manager : MonoBehaviour
 
         CurrentTroopSelected = null;
         CurrentCellSelected = null;
+    }
+
+    public void ResetMovTroops()
+    {
+        foreach (var troop in AllTroop)
+        {
+            troop.HasMoved = false;
+        }
     }
 
     public GameObject[] GetReserves()

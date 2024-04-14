@@ -17,6 +17,7 @@ public class EndOfTurnManager : MonoBehaviour
     public void OnEndOfTurnButton()
     {
         OrdersManager.Instance.ResetOrders();
+        Manager.Instance.ResetMovTroops();
 
         int count = 0;
         foreach (var troop in Manager.Instance.AllTroop)
@@ -29,6 +30,4 @@ public class EndOfTurnManager : MonoBehaviour
         
         ReserveManager.Instance.SpawnPowerToReserve(count);
     }
-
-    
 }

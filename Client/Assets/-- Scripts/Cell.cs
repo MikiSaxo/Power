@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
+    [field: SerializeField] public int ID { get; set; }
     [field: SerializeField] public Colors CellColor { get; set; }
     [SerializeField] private bool _isSea;
     [SerializeField] private bool _isFullLand;
@@ -24,7 +25,7 @@ public class Cell : MonoBehaviour
     [SerializeField] private float _click = .5f;
     
     // [Header("--- Start Point HQ ---")] 
-    [field: SerializeField] public Transform[] _startPoints { get; set; }
+    [field: SerializeField] public Transform[] StartPointsHQ { get; set; }
 
     public bool IsBlocked { get; set; }
 
