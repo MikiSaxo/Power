@@ -107,6 +107,8 @@ public class Troop : MonoBehaviour
         // _lineConnector.ResetLine();
         // _lineConnector.AddBall(CurrentCell.gameObject.transform.position);
         // _lineConnector.AddBall(newCell.gameObject.transform.position);
+
+        if (HasMoved) return;
         
         HasMoved = true;
         
@@ -127,7 +129,8 @@ public class Troop : MonoBehaviour
         IsSelected = false;
         OnPointerExit();
         
-        OrdersManager.Instance.UpdateOrdersLeft(true);
+        if(_myColor == Manager.Instance.MyColor)
+            OrdersManager.Instance.UpdateOrdersLeft(true);
     }
 
     public void ArrivedToNewCell()

@@ -42,6 +42,7 @@ public class Manager : MonoBehaviour
     public List<Troop> AllTroop { get; set; } = new List<Troop>();
 
     private int _countID;
+    private List<TroopsMovements> _troopsMovements = new List<TroopsMovements>();
 
     
     private void Awake()
@@ -63,7 +64,7 @@ public class Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             Debug.Log("j'ai appuyé sur o");
-            PlayerIOScript.Instance.Pioconnection.Send("MOVE", 1, 2 ,5 ,10);
+            //PlayerIOScript.Instance.Pioconnection.Send("MOVE", 1, 2 ,5 ,10);
         }
     }
 
@@ -143,8 +144,29 @@ public class Manager : MonoBehaviour
         {
             ResetAllCells();
             CurrentTroopSelected.MoveToNewCell(newCell);
+            _troopsMovements.Add(new TroopsMovements(CurrentTroopSelected.ID, newCell.name));
+            //PlayerIOScript.Instance.Pioconnection.Send("MOVE", CurrentTroopSelected.ID, newCell.name);
             CurrentTroopSelected = null;
         }
+    }
+
+    public void MoveTroopS2C(int troopID, string cellName)
+    {
+        var saveTroop = new Troop();
+        foreach (var troop in AllTroop)
+        {
+            if (troop.ID == troopID)
+                saveTroop = troop;
+        }
+
+        var saveCell = new Cell();
+        foreach (var cell in _allCells)
+        {
+            if (cell.name == cellName)
+                saveCell = cell;
+        }
+        
+        saveTroop.MoveToNewCell(saveCell);
     }
 
     public void ChangeColor(int color)
@@ -169,6 +191,14 @@ public class Manager : MonoBehaviour
         CurrentCellSelected = null;
     }
 
+    public void MoveAllTroops()
+    {
+        foreach (var mov in _troopsMovements)
+        {
+            PlayerIOScript.Instance.Pioconnection.Send("MOVE", mov.TroopID, mov.CellName);
+        }
+    }
+    
     public void ResetMovTroops()
     {
         foreach (var troop in AllTroop)

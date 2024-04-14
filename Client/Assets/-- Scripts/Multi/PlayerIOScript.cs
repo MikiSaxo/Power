@@ -49,7 +49,9 @@ public class PlayerIOScript : MonoBehaviour
 
     private void AddFunctions()
     {
-       _functions.Add("MOVE", new MovePawnS2C());
+       _functions.Add("MOVE", new MoveTroopS2C());
+       _functions.Add("NewPlayerJoin", new AddNewPlayerS2C());
+       _functions.Add("Want_EndOfTurn", new AddNewVoteEndOfTurnS2C());
     }
     void MasterServerJoined(Client client)
     {
@@ -57,7 +59,8 @@ public class PlayerIOScript : MonoBehaviour
 
         // Comment out the line below to use the live servers instead of your development server
         // Change "localhost" to IPv4 to connect to other people
-        //client.Multiplayer.DevelopmentServer = new ServerEndpoint("localhost", 8184);
+        
+        client.Multiplayer.DevelopmentServer = new ServerEndpoint("localhost", 8184);
 
         Debug.Log("CreateJoinRoom");
         //Create or join the room 
@@ -81,6 +84,7 @@ public class PlayerIOScript : MonoBehaviour
         joinedroom = true;
 
         Pioconnection.Send("TEST", 42, "michel");
+        Pioconnection.Send("NewPlayerJoin");
     }
 
     void HandleMessage(object sender, Message m)

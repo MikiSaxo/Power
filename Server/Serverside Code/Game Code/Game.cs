@@ -36,8 +36,10 @@ namespace SamServer
             //    _functions.Add(func.GetName(), func);
             //}
 
-            _functions.Add("MOVE", new MoveC2S());
+            _functions.Add("MOVE", new MoveTroop());
             _functions.Add("TEST", new Test());
+            _functions.Add("NewPlayerJoin", new AddNewPlayer());
+            _functions.Add("Want_EndOfTurn", new AddNewVoteEndOfTurn());
         }
 
 

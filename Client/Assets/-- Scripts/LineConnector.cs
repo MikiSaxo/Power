@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
 
 public class LineConnector : MonoBehaviour
 {

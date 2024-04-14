@@ -1,0 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using PlayerIOClient;
+using UnityEngine;
+
+public class MoveTroopS2C : IFunction
+{
+    public void Execute(Message m)
+    {
+        int troopID = m.GetInt(1);
+        string newCell = m.GetString(2);
+        Debug.Log($"troop ID : {troopID}, newCell :{newCell}");
+        
+        Manager.Instance.MoveTroopS2C(troopID, newCell);
+    }
+}
