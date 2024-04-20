@@ -13213,6 +13213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1652349044}
+  - component: {fileID: 1652349045}
   m_Layer: 5
   m_Name: ---------- TroopsMap
   m_TagString: Untagged
@@ -13240,6 +13241,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1652349045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652349043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc80f0d1433bac4e9a72a1923730c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _troopsParent: {fileID: 1652349043}
+  _troopPrefab: {fileID: 7659996989262780960, guid: de863adedbc1c5a4fb0b11ca1529939b, type: 3}
+  _troopAllInfos:
+  - {fileID: 11400000, guid: a0a22fc2d8c3a5d4ab36befec60d9eea, type: 2}
+  - {fileID: 11400000, guid: ddda09cb1f7c8dc44b92cbd6d0ad487e, type: 2}
+  - {fileID: 11400000, guid: e494d186916df3b418c78c0c944106d1, type: 2}
+  - {fileID: 11400000, guid: 9217ac963e31de1479c009176b78d0b4, type: 2}
+  _troopStartInfos: 0000000000000000010000000100000002000000020000000300000003000000
+  _timeMoveTroop: 0.25
+  _timeWaitNewColor: 0.5
 --- !u!1001 &1653057513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15799,19 +15822,6 @@ MonoBehaviour:
   - {fileID: 1736905456}
   - {fileID: 1428518186}
   - {fileID: 1299560808}
-  _troopsParent: {fileID: 1652349043}
-  _troopPrefab: {fileID: 7659996989262780960, guid: de863adedbc1c5a4fb0b11ca1529939b, type: 3}
-  _troopAllInfos:
-  - {fileID: 11400000, guid: a0a22fc2d8c3a5d4ab36befec60d9eea, type: 2}
-  - {fileID: 11400000, guid: c1bfda9605b7e6f44b31a0619306bcb4, type: 2}
-  - {fileID: 11400000, guid: ddda09cb1f7c8dc44b92cbd6d0ad487e, type: 2}
-  - {fileID: 11400000, guid: 573bd1925565fbc4980ee13572451156, type: 2}
-  - {fileID: 11400000, guid: e494d186916df3b418c78c0c944106d1, type: 2}
-  - {fileID: 11400000, guid: 70ee0c2d17614bc45bb811ed6993988c, type: 2}
-  - {fileID: 11400000, guid: 9217ac963e31de1479c009176b78d0b4, type: 2}
-  - {fileID: 11400000, guid: d59b743ee99edd648af9d74ae70371d3, type: 2}
-  - {fileID: 11400000, guid: 589e255576c8a034a81ff5324259e4b1, type: 2}
-  _troopStartInfos: 0000000000000000020000000200000004000000040000000600000006000000
   _textMyColor: {fileID: 1001383073}
   _colorsText:
   - {r: 0, g: 0, b: 1, a: 1}

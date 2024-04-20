@@ -12,7 +12,6 @@ public class PlayerIOScript : MonoBehaviour
 
     public Connection Pioconnection;
     private List<Message> msgList = new List<Message>(); //  Messsage queue implementation
-    private bool joinedroom = false;
     private Dictionary<string, IFunction> _functions = new Dictionary<string, IFunction>();
 
 
@@ -81,7 +80,6 @@ public class PlayerIOScript : MonoBehaviour
         // We successfully joined a room so set up the message handler
         Pioconnection = connection;
         Pioconnection.OnMessage += HandleMessage;
-        joinedroom = true;
 
         Pioconnection.Send("TEST", 42, "michel");
         Pioconnection.Send("NewPlayerJoin");

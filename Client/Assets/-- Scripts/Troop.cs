@@ -35,11 +35,6 @@ public class Troop : MonoBehaviour
 
     private Cell _lastCell;
     private bool _isAtStart;
-    private bool _isAtReserve;
-
-    private void Start()
-    {
-    }
 
     public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int indexPosCell, int id)
     {
@@ -76,7 +71,6 @@ public class Troop : MonoBehaviour
             _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
-        _isAtReserve = true;
     }
     
 
@@ -125,7 +119,7 @@ public class Troop : MonoBehaviour
             nbJump = 1;
 
         gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, distance * .1f, nbJump, .25f * nbJump)
-            .OnComplete(Manager.Instance.RecenterTroops);
+            .OnComplete(TroopsManager.Instance.RecenterTroops);
         IsSelected = false;
         OnPointerExit();
         

@@ -25,6 +25,9 @@ public class EndOfTurnManager : MonoBehaviour
         if (_hasVote == true) return;
         
         _hasVote = true;
+        // Verify if PlayerIO is not null
+        if (PlayerIOScript.Instance.Pioconnection == null)
+            return;
         PlayerIOScript.Instance.Pioconnection.Send("Want_EndOfTurn");
     }
 
@@ -57,11 +60,11 @@ public class EndOfTurnManager : MonoBehaviour
     {
         _hasVote = false;
         OrdersManager.Instance.ResetOrders();
-        Manager.Instance.MoveAllTroops();
+        TroopsManager.Instance.MoveAllTroopsC2S();
         // Manager.Instance.ResetMovTroops();
 
         int count = 0;
-        foreach (var troop in Manager.Instance.AllTroop)
+        foreach (var troop in TroopsManager.Instance.AllTroop)
         {
             troop.ResetLineConnector();
 
@@ -69,6 +72,6 @@ public class EndOfTurnManager : MonoBehaviour
                 count++;
         }
         
-        ReserveManager.Instance.SpawnPowerToReserve(count);
+        // ReserveManager.Instance.SpawnPowerToReserve(count);
     }
 }

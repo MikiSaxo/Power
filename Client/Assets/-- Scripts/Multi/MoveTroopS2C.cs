@@ -11,6 +11,6 @@ public class MoveTroopS2C : IFunction
         string newCell = m.GetString(2);
         Debug.Log($"troop ID : {troopID}, newCell :{newCell}");
         
-        Manager.Instance.MoveTroopS2C(troopID, newCell);
+        TroopsManager.Instance.MoveTroopS2C(troopID, newCell);
     }
 }

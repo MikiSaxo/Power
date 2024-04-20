@@ -22,7 +22,7 @@ public class Cell : MonoBehaviour
     [Header("--- Timings ---")] 
     [SerializeField] private float _enter = .5f;
     [SerializeField] private float _exit = .5f;
-    [SerializeField] private float _click = .5f;
+    // [SerializeField] private float _click = .5f;
     
     // [Header("--- Start Point HQ ---")] 
     [field: SerializeField] public Transform[] StartPointsHQ { get; set; }

@@ -8,12 +8,12 @@ public class ReserveManager : MonoBehaviour
 {
     public static ReserveManager Instance;
 
-    
+
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private GameObject _powerPrefab;
     [SerializeField] private GameObject[] _reserves;
 
-    
+
     private int _powerCount;
 
 
@@ -21,33 +21,56 @@ public class ReserveManager : MonoBehaviour
     {
         Instance = this;
     }
-    
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.U))
-            SpawnPowerToReserve(2);
+        // if(Input.GetKeyDown(KeyCode.U))
+        //     SpawnPowerToReserve(2);
     }
 
-    public void SpawnPowerToReserve(int powerCount)
+    public void AddAllPower(List<Troop> troops)
+    {
+        StartCoroutine(AddAllPowerTiming(troops));
+    }
+
+    IEnumerator AddAllPowerTiming(List<Troop> troops)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            var countPower = 0;
+            foreach (var troop in troops)
+            {
+                if (troop.ID == i && troop.IsMyCellEnemyColor())
+                    countPower++;
+            }
+            
+            if(countPower != 0)
+                SpawnPowerToReserve(countPower, i);
+            
+            yield return new WaitForSeconds(.5f);
+        }
+    }
+
+    public void SpawnPowerToReserve(int powerCount, int indexColor)
     {
         _powerCount += powerCount;
-        StartCoroutine(TimingSpawnPower(powerCount));
+        StartCoroutine(TimingSpawnPower(powerCount, indexColor));
     }
 
-    IEnumerator TimingSpawnPower(int newPower)
+    IEnumerator TimingSpawnPower(int newPower, int indexColor)
     {
         for (int i = 0; i < newPower; i++)
         {
             GameObject go = Instantiate(_powerPrefab, transform);
             var power = go.GetComponent<Power>();
-            
-            power.InitAnim(1, _reserves[1].GetComponent<Reserve>());
+
+            power.InitAnim(indexColor, _reserves[indexColor].GetComponent<Reserve>());
             go.transform.DOPunchScale(Vector3.one, power.TimePunchScale);
             yield return new WaitForSeconds(power.TimePunchScale);
             power.JumpToReserve();
             yield return new WaitForSeconds(power.TimeAfterJump);
         }
-        
+
         _upgradeManager.CheckUpgradeAvailable(_powerCount);
     }
 
