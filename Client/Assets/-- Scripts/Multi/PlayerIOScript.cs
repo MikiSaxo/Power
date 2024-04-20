@@ -48,9 +48,10 @@ public class PlayerIOScript : MonoBehaviour
 
     private void AddFunctions()
     {
-       _functions.Add("MOVE", new MoveTroopS2C());
+       _functions.Add("MoveTroop", new MoveTroopS2C());
        _functions.Add("NewPlayerJoin", new AddNewPlayerS2C());
        _functions.Add("Want_EndOfTurn", new AddNewVoteEndOfTurnS2C());
+       _functions.Add("MoveAllTroops", new MoveAllTroopS2C());
     }
     void MasterServerJoined(Client client)
     {

@@ -100,13 +100,13 @@ public class Manager : MonoBehaviour
         CurrentTroopSelected = newTroop;
     }
 
-    public void CheckMovementTroop(Cell newCell)
+    public void CheckMovementMyTroop(Cell newCell)
     {
         if (CurrentTroopSelected != null)
         {
             ResetAllCells();
             CurrentTroopSelected.MoveToNewCell(newCell);
-            TroopsManager.Instance.AddNewTroopMovement(CurrentTroopSelected.ID, newCell.name);
+            TroopsManager.Instance.AddNewMyTroopMovement(CurrentTroopSelected.ID, newCell.name, CurrentTroopSelected.MyColor);
             //PlayerIOScript.Instance.Pioconnection.Send("MOVE", CurrentTroopSelected.ID, newCell.name);
             CurrentTroopSelected = null;
         }

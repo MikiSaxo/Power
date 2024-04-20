@@ -40,7 +40,7 @@ public class ReserveManager : MonoBehaviour
             var countPower = 0;
             foreach (var troop in troops)
             {
-                if (troop.ID == i && troop.IsMyCellEnemyColor())
+                if ((int)troop.MyColor == i && troop.IsMyCellEnemyColor())
                     countPower++;
             }
             

@@ -10,14 +10,14 @@ namespace SamAssemblyExample
 {
     internal class MoveTroop : IFunction
     {
+
         public void Execute(Player player, Message message, GameCode game)
         {
             int troopID = message.GetInt(0);
             string newCell = message.GetString(1);
+            int troopColor = message.GetInt(2);
 
-            Console.WriteLine($"troopID : {troopID} - newCell {newCell}");
-
-            game.Broadcast("MOVE", player.ConnectUserId, troopID, newCell);
+            game.Broadcast("MoveTroop", player.ConnectUserId, troopID, newCell, troopColor);
         }
     }
 }

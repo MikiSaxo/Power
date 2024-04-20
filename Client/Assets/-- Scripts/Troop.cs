@@ -15,7 +15,6 @@ public class Troop : MonoBehaviour
     [Header("--- Troops ---")] 
     [SerializeField] private TroopInfos _troopInfos;
     [SerializeField] private Image _troopImg;
-    [SerializeField] private Colors _myColor;
 
     [Header("--- Highlight ---")] 
     [SerializeField] private Image _imgHighlighted;
@@ -32,6 +31,8 @@ public class Troop : MonoBehaviour
     public bool IsSelected { get; set; }
     public bool HasMoved { get; set; }
     public int ID { get; set; }
+    public Colors MyColor { get; private set; }
+
 
     private Cell _lastCell;
     private bool _isAtStart;
@@ -46,11 +47,11 @@ public class Troop : MonoBehaviour
         
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
-        _myColor = (Colors)colorIndex;
+        MyColor = (Colors)colorIndex;
         
         _troopImg.SetNativeSize();
 
-        if (_myColor == Colors.Red || _myColor == Colors.Green)
+        if (MyColor == Colors.Red || MyColor == Colors.Green)
             _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
@@ -63,11 +64,11 @@ public class Troop : MonoBehaviour
         _troopImg.color = Manager.Instance.PawnColors[colorIndex];
         
         gameObject.transform.position = reservePos.position;
-        _myColor = (Colors)colorIndex;
+        MyColor = (Colors)colorIndex;
         
         _troopImg.SetNativeSize();
 
-        if (_myColor == Colors.Red || _myColor == Colors.Green)
+        if (MyColor == Colors.Red || MyColor == Colors.Green)
             _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
@@ -123,7 +124,7 @@ public class Troop : MonoBehaviour
         IsSelected = false;
         OnPointerExit();
         
-        if(_myColor == Manager.Instance.MyColor)
+        if(MyColor == Manager.Instance.MyColor)
             OrdersManager.Instance.UpdateOrdersLeft(true);
     }
 
@@ -158,7 +159,7 @@ public class Troop : MonoBehaviour
 
     public void OnPointerClick()
     {
-        if (Manager.Instance.MyColor != _myColor) return;
+        if (Manager.Instance.MyColor != MyColor) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -201,7 +202,7 @@ public class Troop : MonoBehaviour
     public void OnPointerEnter()
     {
         if (IsSelected) return;
-        if (Manager.Instance.MyColor != _myColor) return;
+        if (Manager.Instance.MyColor != MyColor) return;
 
         _imgHighlighted.DOColor(_highlightedColors[1], _enter);
     }
@@ -209,7 +210,7 @@ public class Troop : MonoBehaviour
     public void OnPointerExit()
     {
         if (IsSelected) return;
-        if (Manager.Instance.MyColor != _myColor) return;
+        if (Manager.Instance.MyColor != MyColor) return;
 
         _imgHighlighted.DOColor(_highlightedColors[0], _exit);
     }
@@ -219,7 +220,7 @@ public class Troop : MonoBehaviour
         if (CurrentCell.CellColor == Colors.Neutral)
             return false;
         
-        return CurrentCell.CellColor != _myColor;
+        return CurrentCell.CellColor != MyColor;
     }
     
     public void ResetLineConnector()

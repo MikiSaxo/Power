@@ -56,21 +56,28 @@ public class EndOfTurnManager : MonoBehaviour
             GoEndOfTurn();
     }
 
+    private void ResetEndOfTurnNb()
+    {
+        CurrentPlayerNumberVote = 0;
+        UpdatePlayerNbText();
+    }
+
     private void GoEndOfTurn()
     {
         _hasVote = false;
+        ResetEndOfTurnNb();
         OrdersManager.Instance.ResetOrders();
-        TroopsManager.Instance.MoveAllTroopsC2S();
+        TroopsManager.Instance.MoveMyTroopC2S();
         // Manager.Instance.ResetMovTroops();
 
-        int count = 0;
-        foreach (var troop in TroopsManager.Instance.AllTroop)
-        {
-            troop.ResetLineConnector();
-
-            if (troop.IsMyCellEnemyColor())
-                count++;
-        }
+        // int count = 0;
+        // foreach (var troop in TroopsManager.Instance.AllTroop)
+        // {
+        //     troop.ResetLineConnector();
+        //
+        //     if (troop.IsMyCellEnemyColor())
+        //         count++;
+        // }
         
         // ReserveManager.Instance.SpawnPowerToReserve(count);
     }

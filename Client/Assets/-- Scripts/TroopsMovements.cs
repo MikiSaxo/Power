@@ -6,10 +6,12 @@ public class TroopsMovements
 {
     public int TroopID;
     public string CellName;
+    public Colors TroopColor;
 
-    public TroopsMovements(int id, string cellName)
+    public TroopsMovements(int id, string cellName, Colors colors)
     {
         TroopID = id;
         CellName = cellName;
+        TroopColor = colors;
     }
 }

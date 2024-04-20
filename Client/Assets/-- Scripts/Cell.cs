@@ -106,7 +106,7 @@ public class Cell : MonoBehaviour
             return;
         }
 
-        Manager.Instance.CheckMovementTroop(this);
+        Manager.Instance.CheckMovementMyTroop(this);
     }
 
     public void OnPointerEnter()

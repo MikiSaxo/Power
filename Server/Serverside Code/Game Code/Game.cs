@@ -36,12 +36,13 @@ namespace SamServer
             //    _functions.Add(func.GetName(), func);
             //}
 
-            _functions.Add("MOVE", new MoveTroop());
-            _functions.Add("TEST", new Test());
-            _functions.Add("NewPlayerJoin", new AddNewPlayer());
-            _functions.Add("Want_EndOfTurn", new AddNewVoteEndOfTurn());
-        }
 
+            _functions.Add("MoveTroop", new MoveTroop());
+            _functions.Add("TEST", new Test());
+            //_functions.Add("NewPlayerJoin", new AddNewPlayer());
+            _functions.Add("Want_EndOfTurn", new AddNewVoteEndOfTurn());
+            _functions.Add("AllMoveTroopSend", new SendAllMoveTroop(this));
+        }
 
         // This method is called when the last player leaves the room, and it's closed down.
         public override void GameClosed()
@@ -52,14 +53,15 @@ namespace SamServer
         // This method is called whenever a player joins the game
         public override void UserJoined(Player player)
         {
-            foreach (Player pl in Players)
-            {
-                if (pl.ConnectUserId != player.ConnectUserId)
-                {
-                    pl.Send("PlayerJoined", player.ConnectUserId, 0, 0);
-                    player.Send("PlayerJoined", pl.ConnectUserId, pl.posx, pl.posz);
-                }
-            }
+            //foreach (Player pl in Players)
+            //{
+            //    if (pl.ConnectUserId != player.ConnectUserId)
+            //    {
+            //        pl.Send("PlayerJoined", player.ConnectUserId, 0, 0);
+            //        player.Send("PlayerJoined", pl.ConnectUserId, pl.posx, pl.posz);
+            //    }
+            //}
+            Broadcast("NewPlayerJoin", player.ConnectUserId, PlayerCount);
         }
 
         // This method is called when a player leaves the game

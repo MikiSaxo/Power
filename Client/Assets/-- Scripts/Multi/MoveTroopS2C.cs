@@ -9,8 +9,10 @@ public class MoveTroopS2C : IFunction
     {
         int troopID = m.GetInt(1);
         string newCell = m.GetString(2);
-        Debug.Log($"troop ID : {troopID}, newCell :{newCell}");
+        int color = m.GetInt(3);
         
-        TroopsManager.Instance.MoveTroopS2C(troopID, newCell);
+        // Debug.Log($"troop ID : {troopID}, newCell :{newCell}, color : {color}");
+        
+        TroopsManager.Instance.StockMoveTroopS2C(troopID, newCell, (Colors)color);
     }
 }

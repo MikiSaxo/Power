@@ -7,24 +7,28 @@ public class TroopsManager : MonoBehaviour
 {
     public static TroopsManager Instance { get; private set; }
 
+    public List<GameObject> AllTroopObj { get; set; } = new List<GameObject>();
+    public List<Troop> AllTroop { get; set; } = new List<Troop>();
+
     [Header("----- Troops -----")] [SerializeField]
     private GameObject _troopsParent;
 
     [SerializeField] private GameObject _troopPrefab;
     [SerializeField] private TroopInfos[] _troopAllInfos;
     [SerializeField] private int[] _troopStartInfos;
-    public List<GameObject> AllTroopObj { get; set; } = new List<GameObject>();
-    public List<Troop> AllTroop { get; set; } = new List<Troop>();
 
-    private List<TroopsMovements> _troopsMovements = new List<TroopsMovements>();
-    private List<Troop> _troopsLastMovements = new List<Troop>();
-    private int _countID;
+    [Header("----- Timings -----")] [SerializeField]
+    private float _timeMoveTroop = .25f;
 
-
-    [Header("----- Timings -----")]
-    [SerializeField] private float _timeMoveTroop = .25f;
     [SerializeField] private float _timeWaitNewColor = .5f;
 
+
+    private List<TroopsMovements> _myTroopsMovements = new List<TroopsMovements>();
+    private List<Troop> _myTroopsLastMovements = new List<Troop>();
+    
+    private List<TroopsMovements> _allTroopsMovements = new List<TroopsMovements>();
+    
+    private int _countID;
 
     private void Awake()
     {
@@ -57,56 +61,80 @@ public class TroopsManager : MonoBehaviour
         AllTroop.Add(newTroop.GetComponent<Troop>());
     }
 
-    public void AddNewTroopMovement(int troopID, string cellName)
+    public void AddNewMyTroopMovement(int troopID, string cellName, Colors color)
     {
-        _troopsMovements.Add(new TroopsMovements(troopID, cellName));
+        _myTroopsMovements.Add(new TroopsMovements(troopID, cellName, color));
     }
 
-    public void MoveTroopS2C(int troopID, string cellName)
+    public void StockMoveTroopS2C(int troopID, string cellName, Colors color)
     {
-        var saveTroop = new Troop();
+        _allTroopsMovements.Add(new TroopsMovements(troopID, cellName, color));
+    }
+
+    public void MoveAllTroops()
+    {
+        print($"TimingMoveAllTroops : length : {_allTroopsMovements.Count}");
+
+        StartCoroutine(TimingMoveAllTroops());
+    }
+
+    private void MoveTroop(int troopID, string cellName)
+    {
+        Troop saveTroop = null;
         foreach (var troop in AllTroop)
         {
             if (troop.ID == troopID)
                 saveTroop = troop;
         }
 
-        var saveCell = new Cell();
+        Cell saveCell = null;
         foreach (var cell in Manager.Instance.AllCells)
         {
             if (cell.name == cellName)
                 saveCell = cell;
         }
 
+        if (saveCell == null || saveTroop == null)
+        {
+            Debug.LogWarning($"saveCell or saveTroop is null, cellName: {cellName}, troopID: {troopID}");
+            return;
+        }
+
         saveTroop.MoveToNewCell(saveCell);
         saveTroop.ResetLineConnector();
-        
-        _troopsLastMovements.Add(saveTroop);
+
+        _myTroopsLastMovements.Add(saveTroop);
     }
 
-    public void MoveAllTroopsC2S()
+    public void MoveMyTroopC2S()
     {
-        StartCoroutine(TimingMoveAllTroops());
+        foreach (var troop in _myTroopsMovements)
+        {
+            PlayerIOScript.Instance.Pioconnection.Send("MoveTroop", troop.TroopID, troop.CellName, (int)troop.TroopColor);
+        }
+
+        print("All infos send to server");
+        PlayerIOScript.Instance.Pioconnection.Send("AllMoveTroopSend");
     }
 
     IEnumerator TimingMoveAllTroops()
     {
-        foreach (var mov in _troopsMovements)
+        for (int i = 0; i < 4; i++)
         {
-            for (int i = 0; i < 4; i++)
+            foreach (var mov in _allTroopsMovements)
             {
-                if (mov.TroopID == i)
-                    PlayerIOScript.Instance.Pioconnection.Send("MOVE", mov.TroopID, mov.CellName);
+                if ((int)mov.TroopColor == i)
+                    MoveTroop(mov.TroopID, mov.CellName);
 
                 yield return new WaitForSeconds(_timeMoveTroop);
             }
 
             yield return new WaitForSeconds(_timeWaitNewColor);
         }
-        
-        ReserveManager.Instance.AddAllPower(_troopsLastMovements);
+
+        ReserveManager.Instance.AddAllPower(_myTroopsLastMovements);
     }
-    
+
     public void RecenterTroops()
     {
         foreach (var troop in AllTroopObj)
