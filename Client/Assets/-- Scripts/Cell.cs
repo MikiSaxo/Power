@@ -134,14 +134,14 @@ public class Cell : MonoBehaviour
         _img.DOColor(_colors[3], _exit);
     }
 
-    private void OnDrawGizmos()
-    {
-        foreach (var cell in Neighbor)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(gameObject.transform.position, cell.gameObject.transform.position);
-        }
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     foreach (var cell in Neighbor)
+    //     {
+    //         Gizmos.color = Color.red;
+    //         Gizmos.DrawLine(gameObject.transform.position, cell.gameObject.transform.position);
+    //     }
+    // }
 }
 
 public enum Colors

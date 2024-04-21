@@ -31,7 +31,7 @@ public class EndOfTurnManager : MonoBehaviour
         PlayerIOScript.Instance.Pioconnection.Send("Want_EndOfTurn");
     }
 
-    public void AddNewPlayer(int nbPlayer)
+    public void UpdateNbPlayer(int nbPlayer)
     {
         CurrentPlayerNumberGame = nbPlayer;
         UpdatePlayerNbText();

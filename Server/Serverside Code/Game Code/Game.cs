@@ -39,7 +39,7 @@ namespace SamServer
 
             _functions.Add("MoveTroop", new MoveTroop());
             _functions.Add("TEST", new Test());
-            //_functions.Add("NewPlayerJoin", new AddNewPlayer());
+            _functions.Add("ChooseColorPlayerName", new ChooseColorPlayerName());
             _functions.Add("Want_EndOfTurn", new AddNewVoteEndOfTurn());
             _functions.Add("AllMoveTroopSend", new SendAllMoveTroop(this));
         }
@@ -53,15 +53,16 @@ namespace SamServer
         // This method is called whenever a player joins the game
         public override void UserJoined(Player player)
         {
-            //foreach (Player pl in Players)
-            //{
-            //    if (pl.ConnectUserId != player.ConnectUserId)
-            //    {
-            //        pl.Send("PlayerJoined", player.ConnectUserId, 0, 0);
-            //        player.Send("PlayerJoined", pl.ConnectUserId, pl.posx, pl.posz);
-            //    }
-            //}
-            Broadcast("NewPlayerJoin", player.ConnectUserId, PlayerCount);
+            foreach (Player pl in Players)
+            {
+                if (pl.ConnectUserId != player.ConnectUserId)
+                {
+                    //pl.Send("PlayerJoined", player.ConnectUserId, 0, 0);
+                    //player.Send("PlayerJoined", pl.ConnectUserId, pl.posx, pl.posz);
+
+                    Broadcast("NewPlayerJoin", player.ConnectUserId, PlayerCount);
+                }
+            }
         }
 
         // This method is called when a player leaves the game

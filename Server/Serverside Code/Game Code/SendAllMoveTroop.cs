@@ -12,6 +12,7 @@ namespace SamAssemblyExample
     {
         GameCode _gameCode;
         int _count;
+
         public SendAllMoveTroop(GameCode gameCode)
         {
             _gameCode = gameCode;
@@ -24,6 +25,7 @@ namespace SamAssemblyExample
             if (_count == _gameCode.PlayerCount)
             {
                 game.Broadcast("MoveAllTroops");
+                _count = 0;
             }
         }
     }
