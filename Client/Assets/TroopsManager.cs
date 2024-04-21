@@ -71,13 +71,6 @@ public class TroopsManager : MonoBehaviour
         _allTroopsMovements.Add(new TroopsMovements(troopID, cellName, color));
     }
 
-    public void MoveAllTroops()
-    {
-        print($"TimingMoveAllTroops : length : {_allTroopsMovements.Count}");
-
-        StartCoroutine(TimingMoveAllTroops());
-    }
-
     private void MoveTroop(int troopID, string cellName)
     {
         Troop saveTroop = null;
@@ -117,6 +110,13 @@ public class TroopsManager : MonoBehaviour
         PlayerIOScript.Instance.Pioconnection.Send("AllMoveTroopSend");
     }
 
+    public void MoveAllTroops()
+    {
+        print($"TimingMoveAllTroops : length : {_allTroopsMovements.Count}");
+
+        StartCoroutine(TimingMoveAllTroops());
+    }
+    
     IEnumerator TimingMoveAllTroops()
     {
         for (int i = 0; i < 4; i++)
@@ -125,6 +125,8 @@ public class TroopsManager : MonoBehaviour
             {
                 if ((int)mov.TroopColor == i)
                     MoveTroop(mov.TroopID, mov.CellName);
+                else
+                    continue;
 
                 yield return new WaitForSeconds(_timeMoveTroop);
             }

@@ -41,11 +41,8 @@ public class Manager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    public void InitGame()
     {
-
-        SetMyColor(Colors.Blue);
-        
         SetReserve();
     }
 
@@ -58,9 +55,9 @@ public class Manager : MonoBehaviour
         }
     }
 
-    private void SetMyColor(Colors color)
+    public void SetMyColor(int color)
     {
-        MyColor = color;
+        MyColor = (Colors)color;
         _textMyColor.text = $"You are {MyColor}";
         _textMyColor.color = _colorsText[(int)MyColor];
     }
@@ -110,11 +107,6 @@ public class Manager : MonoBehaviour
             //PlayerIOScript.Instance.Pioconnection.Send("MOVE", CurrentTroopSelected.ID, newCell.name);
             CurrentTroopSelected = null;
         }
-    }
-
-    public void ChangeColor(int color)
-    {
-        MyColor = (Colors)color;
     }
     
     public void ResetAllCells()
