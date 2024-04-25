@@ -104,7 +104,8 @@ public class ColorMenuAnim : MonoBehaviour
             InstantiateOtherPlayerName(playerName, index);
             return;
         }
-        
+
+        bool hasFound = false;
         foreach (var player in _currentOtherPlayerName)
         {
             if(player.GetComponent<TMP_Text>().text == playerName)
@@ -114,14 +115,14 @@ public class ColorMenuAnim : MonoBehaviour
                 Destroy(playerToDestroy);
                 
                 InstantiateOtherPlayerName(playerName, index);
-                
+
+                hasFound = true;
                 break;
             }
-            else
-            {
-                InstantiateOtherPlayerName(playerName, index);
-            }
         }
+        
+        if(!hasFound)
+            InstantiateOtherPlayerName(playerName, index);
     }
 
     private void InstantiateOtherPlayerName(string playerName, int index)

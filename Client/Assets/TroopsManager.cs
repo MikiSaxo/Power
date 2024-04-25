@@ -106,7 +106,7 @@ public class TroopsManager : MonoBehaviour
             PlayerIOScript.Instance.Pioconnection.Send("MoveTroop", troop.TroopID, troop.CellName, (int)troop.TroopColor);
         }
 
-        print("All infos send to server");
+        print("All my troop infos send to server");
         PlayerIOScript.Instance.Pioconnection.Send("AllMoveTroopSend");
     }
 
@@ -135,6 +135,8 @@ public class TroopsManager : MonoBehaviour
         }
 
         ReserveManager.Instance.AddAllPower(_myTroopsLastMovements);
+        _myTroopsLastMovements.Clear();
+        _allTroopsMovements.Clear();
     }
 
     public void RecenterTroops()

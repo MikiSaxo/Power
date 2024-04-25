@@ -47,3 +47,17 @@ C:\Users\Famille\Documents\Power\Server\Serverside Code\Player.IO Test Server Pr
 C:\Users\Famille\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csproj.CopyComplete
 C:\Users\Famille\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.exe
 C:\Users\Famille\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.pdb
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.exe.config
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.exe
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.pdb
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO Development Server.exe
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.dll
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\SamAssembly.dll
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\SamAssembly.pdb
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.xml
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csproj.AssemblyReference.cache
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csproj.SuggestedBindingRedirects.cache
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csproj.CoreCompileInputs.cache
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csproj.CopyComplete
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.exe
+C:\Users\sch4r\Documents\Power\Server\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.pdb

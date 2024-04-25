@@ -59,16 +59,17 @@ namespace SamServer
                 {
                     //pl.Send("PlayerJoined", player.ConnectUserId, 0, 0);
                     //player.Send("PlayerJoined", pl.ConnectUserId, pl.posx, pl.posz);
-
-                    Broadcast("NewPlayerJoin", player.ConnectUserId, PlayerCount);
                 }
             }
+            Broadcast("NewPlayerJoin", player.ConnectUserId, PlayerCount);
+            Console.WriteLine("New Player Join");
         }
 
         // This method is called when a player leaves the game
         public override void UserLeft(Player player)
         {
             Broadcast("PlayerLeft", player.ConnectUserId);
+            Console.WriteLine($"Player : {player} Quit");
         }
 
         // This method is called when a player sends a message into the server code
