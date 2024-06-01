@@ -13,6 +13,6 @@ public class MoveTroopS2C : IFunction
         
         // Debug.Log($"troop ID : {troopID}, newCell :{newCell}, color : {color}");
         
-        TroopsManager.Instance.StockMoveTroopS2C(troopID, newCell, (Colors)color);
+        TroopsManager.Instance.StockMoveTroopS2C(troopID, newCell, (ColorsID)color);
     }
 }

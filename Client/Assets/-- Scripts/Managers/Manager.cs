@@ -31,7 +31,7 @@ public class Manager : MonoBehaviour
     public Color[] PawnColors;
     
 
-    public Colors MyColor { get; set; }
+    public ColorsID MyColorID { get; set; }
     public Troop CurrentTroopSelected { get; set; }
     public Cell CurrentCellSelected { get; set; }
 
@@ -43,7 +43,7 @@ public class Manager : MonoBehaviour
 
     public void InitGame()
     {
-        SetReserve();
+        ReserveManager.Instance.SetReserveColor();
     }
 
     private void Update()
@@ -57,18 +57,18 @@ public class Manager : MonoBehaviour
 
     public void SetMyColor(int color)
     {
-        MyColor = (Colors)color;
-        _textMyColor.text = $"You are {MyColor}";
-        _textMyColor.color = _colorsText[(int)MyColor];
+        MyColorID = (ColorsID)color;
+        _textMyColor.text = $"You are {MyColorID}";
+        _textMyColor.color = _colorsText[(int)MyColorID];
     }
 
     private void SetReserve()
     {
         // Prévoir un script réserve ou une list/dico pour savoir quelle réserve appartient à quelle couleur
-        _reserves[0].GetComponentInChildren<Image>().color = _colorsReserves[(int)MyColor];
+        _reserves[0].GetComponentInChildren<Image>().color = _colorsReserves[(int)MyColorID];
         
-        List<Colors> availableColors = new List<Colors> { Colors.Blue, Colors.Yellow, Colors.Red, Colors.Green };
-        availableColors.Remove(MyColor);
+        List<ColorsID> availableColors = new List<ColorsID> { ColorsID.Blue, ColorsID.Yellow, ColorsID.Red, ColorsID.Green };
+        availableColors.Remove(MyColorID);
 
         for (int i = 1; i < _reserves.Length; i++)
         {
@@ -103,7 +103,7 @@ public class Manager : MonoBehaviour
         {
             ResetAllCells();
             CurrentTroopSelected.MoveToNewCell(newCell);
-            TroopsManager.Instance.AddNewMyTroopMovement(CurrentTroopSelected.ID, newCell.name, CurrentTroopSelected.MyColor);
+            TroopsManager.Instance.AddNewMyTroopMovement(CurrentTroopSelected.ID, newCell.name, CurrentTroopSelected.MyColorID);
             //PlayerIOScript.Instance.Pioconnection.Send("MOVE", CurrentTroopSelected.ID, newCell.name);
             CurrentTroopSelected = null;
         }
@@ -124,10 +124,5 @@ public class Manager : MonoBehaviour
 
         CurrentTroopSelected = null;
         CurrentCellSelected = null;
-    }
-
-    public GameObject[] GetReserves()
-    {
-        return _reserves;
     }
 }

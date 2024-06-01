@@ -61,14 +61,14 @@ public class TroopsManager : MonoBehaviour
         AllTroop.Add(newTroop.GetComponent<Troop>());
     }
 
-    public void AddNewMyTroopMovement(int troopID, string cellName, Colors color)
+    public void AddNewMyTroopMovement(int troopID, string cellName, ColorsID colorID)
     {
-        _myTroopsMovements.Add(new TroopsMovements(troopID, cellName, color));
+        _myTroopsMovements.Add(new TroopsMovements(troopID, cellName, colorID));
     }
 
-    public void StockMoveTroopS2C(int troopID, string cellName, Colors color)
+    public void StockMoveTroopS2C(int troopID, string cellName, ColorsID colorID)
     {
-        _allTroopsMovements.Add(new TroopsMovements(troopID, cellName, color));
+        _allTroopsMovements.Add(new TroopsMovements(troopID, cellName, colorID));
     }
 
     private void MoveTroop(int troopID, string cellName)
@@ -103,10 +103,10 @@ public class TroopsManager : MonoBehaviour
     {
         foreach (var troop in _myTroopsMovements)
         {
-            PlayerIOScript.Instance.Pioconnection.Send("MoveTroop", troop.TroopID, troop.CellName, (int)troop.TroopColor);
+            PlayerIOScript.Instance.Pioconnection.Send("MoveTroop", troop.TroopID, troop.CellName, (int)troop.TroopColorID);
         }
 
-        print("All my troop infos send to server");
+        print("All infos send to server");
         PlayerIOScript.Instance.Pioconnection.Send("AllMoveTroopSend");
     }
 
@@ -123,7 +123,7 @@ public class TroopsManager : MonoBehaviour
         {
             foreach (var mov in _allTroopsMovements)
             {
-                if ((int)mov.TroopColor == i)
+                if ((int)mov.TroopColorID == i)
                     MoveTroop(mov.TroopID, mov.CellName);
                 else
                     continue;
@@ -134,9 +134,14 @@ public class TroopsManager : MonoBehaviour
             yield return new WaitForSeconds(_timeWaitNewColor);
         }
 
+        // Check combat 
         ReserveManager.Instance.AddAllPower(_myTroopsLastMovements);
-        _myTroopsLastMovements.Clear();
+        yield return new WaitForSeconds(_timeMoveTroop);
+        RecenterTroops();
+        ResetMovTroops();
         _allTroopsMovements.Clear();
+        _myTroopsLastMovements.Clear();
+        _myTroopsMovements.Clear();
     }
 
     public void RecenterTroops()

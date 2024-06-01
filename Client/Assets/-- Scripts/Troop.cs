@@ -31,7 +31,7 @@ public class Troop : MonoBehaviour
     public bool IsSelected { get; set; }
     public bool HasMoved { get; set; }
     public int ID { get; set; }
-    public Colors MyColor { get; private set; }
+    public ColorsID MyColorID { get; private set; }
 
 
     private Cell _lastCell;
@@ -47,11 +47,11 @@ public class Troop : MonoBehaviour
         
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
-        MyColor = (Colors)colorIndex;
+        MyColorID = (ColorsID)colorIndex;
         
         _troopImg.SetNativeSize();
 
-        if (MyColor == Colors.Red || MyColor == Colors.Green)
+        if (MyColorID == ColorsID.Red || MyColorID == ColorsID.Green)
             _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
@@ -64,11 +64,11 @@ public class Troop : MonoBehaviour
         _troopImg.color = Manager.Instance.PawnColors[colorIndex];
         
         gameObject.transform.position = reservePos.position;
-        MyColor = (Colors)colorIndex;
+        MyColorID = (ColorsID)colorIndex;
         
         _troopImg.SetNativeSize();
 
-        if (MyColor == Colors.Red || MyColor == Colors.Green)
+        if (MyColorID == ColorsID.Red || MyColorID == ColorsID.Green)
             _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
@@ -119,12 +119,12 @@ public class Troop : MonoBehaviour
         if (nbJump < 1)
             nbJump = 1;
 
-        gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, distance * .1f, nbJump, .25f * nbJump)
+        gameObject.transform.DOJump(CurrentCell.gameObject.transform.position, distance * .1f, nbJump, .35f * nbJump)
             .OnComplete(TroopsManager.Instance.RecenterTroops);
         IsSelected = false;
         OnPointerExit();
         
-        if(MyColor == Manager.Instance.MyColor)
+        if(MyColorID == Manager.Instance.MyColorID)
             OrdersManager.Instance.UpdateOrdersLeft(true);
     }
 
@@ -159,7 +159,7 @@ public class Troop : MonoBehaviour
 
     public void OnPointerClick()
     {
-        if (Manager.Instance.MyColor != MyColor) return;
+        if (Manager.Instance.MyColorID != MyColorID) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -202,7 +202,7 @@ public class Troop : MonoBehaviour
     public void OnPointerEnter()
     {
         if (IsSelected) return;
-        if (Manager.Instance.MyColor != MyColor) return;
+        if (Manager.Instance.MyColorID != MyColorID) return;
 
         _imgHighlighted.DOColor(_highlightedColors[1], _enter);
     }
@@ -210,17 +210,17 @@ public class Troop : MonoBehaviour
     public void OnPointerExit()
     {
         if (IsSelected) return;
-        if (Manager.Instance.MyColor != MyColor) return;
+        if (Manager.Instance.MyColorID != MyColorID) return;
 
         _imgHighlighted.DOColor(_highlightedColors[0], _exit);
     }
 
-    public bool IsMyCellEnemyColor()
+    public bool IsCellEnemyColor()
     {
-        if (CurrentCell.CellColor == Colors.Neutral)
+        if (CurrentCell.CellColorID == ColorsID.Neutral)
             return false;
         
-        return CurrentCell.CellColor != MyColor;
+        return CurrentCell.CellColorID != MyColorID;
     }
     
     public void ResetLineConnector()

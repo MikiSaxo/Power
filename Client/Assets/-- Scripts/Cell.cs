@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Cell : MonoBehaviour
 {
     [field: SerializeField] public int ID { get; set; }
-    [field: SerializeField] public Colors CellColor { get; set; }
+    [field: SerializeField] public ColorsID CellColorID { get; set; }
     [SerializeField] private bool _isSea;
     [SerializeField] private bool _isFullLand;
     [field: SerializeField] public List<Cell> Neighbor { get; set; } = new List<Cell>();
@@ -144,7 +144,7 @@ public class Cell : MonoBehaviour
     // }
 }
 
-public enum Colors
+public enum ColorsID
 {
     Neutral = -1,
     Blue = 0,
