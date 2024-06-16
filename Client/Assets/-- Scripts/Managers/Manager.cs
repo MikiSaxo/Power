@@ -13,29 +13,33 @@ public class Manager : MonoBehaviour
 
     public List<Cell> AllCells => _allCells;
     public Cell[] CellHQ_BYRG => _cellHQ_BYRG;
-    
+
     [Header("----- Cells -----")]
     // Make _allCells private and add a public getter
-    [SerializeField] private List<Cell> _allCells = new List<Cell>();
+    [SerializeField]
+    private List<Cell> _allCells = new List<Cell>();
+
     [SerializeField] private Cell[] _cellHQ_BYRG;
-    
-    [Header("----- Player UI -----")]
-    [SerializeField] private TMP_Text _textMyColor;
+
+    [Header("----- Player UI -----")] [SerializeField]
+    private TMP_Text _textMyColor;
+
     [SerializeField] private Color[] _colorsText;
 
-    [Header("----- Reserves -----")]
-    [SerializeField] private GameObject[] _reserves;
+    [Header("----- Reserves -----")] [SerializeField]
+    private GameObject[] _reserves;
+
     [SerializeField] private Color[] _colorsReserves;
 
-    [Header("----- Colors -----")] 
-    public Color[] PawnColors;
-    
+    [Header("----- Colors -----")] public Color[] PawnColors;
+
 
     public ColorsID MyColorID { get; set; }
     public Troop CurrentTroopSelected { get; set; }
+    public List<Troop> CurrentMultipleTroopsSelected { get; set; } = new List<Troop>();
     public Cell CurrentCellSelected { get; set; }
 
-    
+
     private void Awake()
     {
         Instance = this;
@@ -66,8 +70,9 @@ public class Manager : MonoBehaviour
     {
         // Prévoir un script réserve ou une list/dico pour savoir quelle réserve appartient à quelle couleur
         _reserves[0].GetComponentInChildren<Image>().color = _colorsReserves[(int)MyColorID];
-        
-        List<ColorsID> availableColors = new List<ColorsID> { ColorsID.Blue, ColorsID.Yellow, ColorsID.Red, ColorsID.Green };
+
+        List<ColorsID> availableColors = new List<ColorsID>
+            { ColorsID.Blue, ColorsID.Yellow, ColorsID.Red, ColorsID.Green };
         availableColors.Remove(MyColorID);
 
         for (int i = 1; i < _reserves.Length; i++)
@@ -83,7 +88,7 @@ public class Manager : MonoBehaviour
         {
             cell.ForceUpdateViewCell(state);
         }
-    } 
+    }
 
     public void UpdateTroopSelected(Troop newTroop)
     {
@@ -93,8 +98,52 @@ public class Manager : MonoBehaviour
             CurrentTroopSelected.IsSelected = false;
             CurrentTroopSelected.OnPointerExit();
         }
-        
+
         CurrentTroopSelected = newTroop;
+
+        if (CurrentMultipleTroopsSelected.Count > 0)
+        {
+            foreach (var troop in CurrentMultipleTroopsSelected)
+            {
+                troop.IsSelected = false;
+                troop.OnPointerExit();
+            }
+
+            CurrentMultipleTroopsSelected.Clear();
+        }
+    }
+
+    public void UpdateMultipleTroopsSelected(Troop troop)
+    {
+        if (CurrentTroopSelected != null)
+        {
+            AddTroopMultipleSelection(troop);
+            AddTroopMultipleSelection(CurrentTroopSelected);
+            CurrentTroopSelected = null;
+            return;
+        }
+
+        if (CurrentMultipleTroopsSelected.Contains(troop))
+        {
+            RemoveTroopMultipleSelection(troop);
+        }
+        else
+        {
+            AddTroopMultipleSelection(troop);
+        }
+    }
+
+    private void AddTroopMultipleSelection(Troop troop)
+    {
+        troop.IsSelected = true;
+        CurrentMultipleTroopsSelected.Add(troop);
+    }
+
+    private void RemoveTroopMultipleSelection(Troop troop)
+    {
+        troop.IsSelected = false;
+        troop.OnPointerExit();
+        CurrentMultipleTroopsSelected.Remove(troop);
     }
 
     public void CheckMovementMyTroop(Cell newCell)
@@ -103,12 +152,13 @@ public class Manager : MonoBehaviour
         {
             ResetAllCells();
             CurrentTroopSelected.MoveToNewCell(newCell);
-            TroopsManager.Instance.AddNewMyTroopMovement(CurrentTroopSelected.ID, newCell.name, CurrentTroopSelected.MyColorID);
+            TroopsManager.Instance.AddNewMyTroopMovement(CurrentTroopSelected.ID, newCell.name,
+                CurrentTroopSelected.MyColorID);
             //PlayerIOScript.Instance.Pioconnection.Send("MOVE", CurrentTroopSelected.ID, newCell.name);
             CurrentTroopSelected = null;
         }
     }
-    
+
     public void ResetAllCells()
     {
         foreach (var cell in _allCells)
@@ -117,12 +167,12 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public void ResetAllSelected()
-    {
-        if (CurrentTroopSelected != null)
-            CurrentTroopSelected.DeselectTroop();
-
-        CurrentTroopSelected = null;
-        CurrentCellSelected = null;
-    }
+    // public void ResetAllSelected()
+    // {
+    //     if (CurrentTroopSelected != null)
+    //         CurrentTroopSelected.DeselectTroop();
+    //
+    //     CurrentTroopSelected = null;
+    //     CurrentCellSelected = null;
+    // }
 }

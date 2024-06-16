@@ -12,16 +12,19 @@ public class Troop : MonoBehaviour
 
     [SerializeField] private LineConnector _lineConnector;
 
-    [Header("--- Troops ---")] 
-    [SerializeField] private TroopInfos _troopInfos;
+    [Header("--- Troops ---")] [SerializeField]
+    private TroopInfos _troopInfos;
+
     [SerializeField] private Image _troopImg;
 
-    [Header("--- Highlight ---")] 
-    [SerializeField] private Image _imgHighlighted;
+    [Header("--- Highlight ---")] [SerializeField]
+    private Image _imgHighlighted;
+
     [SerializeField] private Color[] _highlightedColors;
 
-    [Header("--- Timings ---")] 
-    [SerializeField] private float _enter = .5f;
+    [Header("--- Timings ---")] [SerializeField]
+    private float _enter = .5f;
+
     [SerializeField] private float _exit = .5f;
     [SerializeField] private float _click = .5f;
 
@@ -44,11 +47,11 @@ public class Troop : MonoBehaviour
         _troopImg.sprite = troopInfos.TroopSprite;
         _troopImg.color = Manager.Instance.PawnColors[colorIndex];
         ID = id;
-        
+
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
         MyColorID = (ColorsID)colorIndex;
-        
+
         _troopImg.SetNativeSize();
 
         if (MyColorID == ColorsID.Red || MyColorID == ColorsID.Green)
@@ -62,10 +65,10 @@ public class Troop : MonoBehaviour
         _troopInfos = troopInfos;
         _troopImg.sprite = troopInfos.TroopSprite;
         _troopImg.color = Manager.Instance.PawnColors[colorIndex];
-        
+
         gameObject.transform.position = reservePos.position;
         MyColorID = (ColorsID)colorIndex;
-        
+
         _troopImg.SetNativeSize();
 
         if (MyColorID == ColorsID.Red || MyColorID == ColorsID.Green)
@@ -73,7 +76,7 @@ public class Troop : MonoBehaviour
 
         _isAtStart = true;
     }
-    
+
 
     private void SelectTroop()
     {
@@ -104,9 +107,9 @@ public class Troop : MonoBehaviour
         // _lineConnector.AddBall(newCell.gameObject.transform.position);
 
         if (HasMoved) return;
-        
+
         HasMoved = true;
-        
+
         _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,
             newCell.gameObject.transform.position);
 
@@ -123,8 +126,8 @@ public class Troop : MonoBehaviour
             .OnComplete(TroopsManager.Instance.RecenterTroops);
         IsSelected = false;
         OnPointerExit();
-        
-        if(MyColorID == Manager.Instance.MyColorID)
+
+        if (MyColorID == Manager.Instance.MyColorID)
             OrdersManager.Instance.UpdateOrdersLeft(true);
     }
 
@@ -145,7 +148,7 @@ public class Troop : MonoBehaviour
     private void GoToOldCell()
     {
         ResetLineConnector();
-        
+
         CurrentCell = _lastCell;
         _lastCell = null;
         gameObject.transform.DOKill();
@@ -166,7 +169,23 @@ public class Troop : MonoBehaviour
             if (!OrdersManager.Instance.CanAddNewOrder()) return;
             if (HasMoved) return;
 
-            PointerLeftClick();
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+                // Si une autre troupe est déjà sélectionnée
+                // if (Manager.Instance.CurrentTroopSelected != null && Manager.Instance.CurrentTroopSelected != this)
+                // {
+                PointerLeftShiftClick();
+                Manager.Instance.UpdateAllCells(false);
+                // }
+                // else
+                // {
+                // PointerLeftClick();
+                // }
+            }
+            else
+            {
+                PointerLeftClick();
+            }
         }
         else
         {
@@ -190,12 +209,22 @@ public class Troop : MonoBehaviour
         }
     }
 
+    private void PointerLeftShiftClick()
+    {
+        _imgHighlighted.DOColor(_highlightedColors[2], _click);
+
+        if (_troopInfos.TroopsType != TroopsType.MegaMissile)
+        {
+            Manager.Instance.UpdateMultipleTroopsSelected(this);
+        }
+    }
+
     private void PointerRightClick()
     {
         if (_lastCell == null) return;
 
         HasMoved = false;
-        
+
         GoToOldCell();
     }
 
@@ -219,10 +248,10 @@ public class Troop : MonoBehaviour
     {
         if (CurrentCell.CellColorID == ColorsID.Neutral)
             return false;
-        
+
         return CurrentCell.CellColorID != MyColorID;
     }
-    
+
     public void ResetLineConnector()
     {
         _lineConnector.ResetLine();
