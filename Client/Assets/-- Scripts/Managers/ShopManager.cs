@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeManager : MonoBehaviour
+public class ShopManager : MonoBehaviour
 {
     [SerializeField] private GameObject _upgradePrefab;
     [SerializeField] private UpgradeInfos[] _upgradeInfos;
@@ -19,7 +19,7 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public void CheckUpgradeAvailable(int nbPower)
+    public void CheckShopUpgradeAvailable(int nbPower)
     {
         for (int i = 0; i < _upgradeInfos.Length; i++)
         {

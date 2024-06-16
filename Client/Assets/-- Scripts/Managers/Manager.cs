@@ -14,6 +14,11 @@ public class Manager : MonoBehaviour
     public List<Cell> AllCells => _allCells;
     public Cell[] CellHQ_BYRG => _cellHQ_BYRG;
 
+    [Header("----- Bypass -----")]
+    [SerializeField] private bool _bypassStart;
+    [SerializeField] private GameObject _titleMenu;
+    [SerializeField] private GameObject _colorMenu;
+    
     [Header("----- Cells -----")]
     // Make _allCells private and add a public getter
     [SerializeField]
@@ -43,6 +48,16 @@ public class Manager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        if (_bypassStart)
+        {
+            _titleMenu.SetActive(false);
+            _colorMenu.SetActive(false);
+            InitGame();
+        }
     }
 
     public void InitGame()
@@ -144,6 +159,16 @@ public class Manager : MonoBehaviour
         troop.IsSelected = false;
         troop.OnPointerExit();
         CurrentMultipleTroopsSelected.Remove(troop);
+    }
+    
+    public Troop CanAddMultipleTroops()
+    {
+        if (CurrentMultipleTroopsSelected.Count == 0 && CurrentTroopSelected == null) return null;
+        
+        if(CurrentTroopSelected != null)
+            return CurrentTroopSelected;
+        
+        return CurrentMultipleTroopsSelected[0];
     }
 
     public void CheckMovementMyTroop(Cell newCell)

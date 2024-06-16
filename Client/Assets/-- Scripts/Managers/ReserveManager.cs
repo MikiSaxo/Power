@@ -11,7 +11,7 @@ public class ReserveManager : MonoBehaviour
     public static ReserveManager Instance;
 
 
-    [SerializeField] private UpgradeManager _upgradeManager;
+    [SerializeField] private ShopManager shopManager;
     [SerializeField] private GameObject _powerPrefab;
     [SerializeField] private GameObject[] _reserves;
     [SerializeField] private Color[] _colorsReserves;
@@ -165,13 +165,13 @@ public class ReserveManager : MonoBehaviour
     //     _upgradeManager.CheckUpgradeAvailable(_powerCount);
     // }
 
-    public void BuyUpgrade(int cost, int index)
+    public void BuyShopUpgrade(int cost, int index)
     {
         _powerCount -= cost;
 
         _reserves[0].GetComponent<Reserve>().AddNewUnit(index);
         _reserves[0].GetComponent<Reserve>().RemovePower(cost);
 
-        _upgradeManager.CheckUpgradeAvailable(_powerCount);
+        shopManager.CheckShopUpgradeAvailable(_powerCount);
     }
 }

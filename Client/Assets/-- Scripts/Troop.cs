@@ -36,6 +36,7 @@ public class Troop : MonoBehaviour
     public int ID { get; set; }
     public ColorsID MyColorID { get; private set; }
 
+    public TroopsType TroopType { get; private set; }
 
     private Cell _lastCell;
     private bool _isAtStart;
@@ -47,6 +48,7 @@ public class Troop : MonoBehaviour
         _troopImg.sprite = troopInfos.TroopSprite;
         _troopImg.color = Manager.Instance.PawnColors[colorIndex];
         ID = id;
+        TroopType = troopInfos.TroopsType;
 
         CurrentCell = startCell;
         gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
@@ -232,6 +234,15 @@ public class Troop : MonoBehaviour
     {
         if (IsSelected) return;
         if (Manager.Instance.MyColorID != MyColorID) return;
+
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            if (Manager.Instance.CanAddMultipleTroops() != null)
+            {
+                if (Manager.Instance.CanAddMultipleTroops().TroopType != TroopType)
+                    return;
+            }
+        }
 
         _imgHighlighted.DOColor(_highlightedColors[1], _enter);
     }

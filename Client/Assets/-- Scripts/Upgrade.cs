@@ -26,6 +26,11 @@ public class Upgrade : MonoBehaviour
 
     public void GoUpdate()
     {
-        ReserveManager.Instance.BuyUpgrade(_cost, _index);
+        ReserveManager.Instance.BuyShopUpgrade(_cost, _index);
+    }
+
+    public void GoFusion()
+    {
+        
     }
 }
