@@ -235,14 +235,14 @@ public class Troop : MonoBehaviour
         if (IsSelected) return;
         if (Manager.Instance.MyColorID != MyColorID) return;
 
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            if (Manager.Instance.CanAddMultipleTroops() != null)
-            {
-                if (Manager.Instance.CanAddMultipleTroops().TroopType != TroopType)
-                    return;
-            }
-        }
+        // if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        // {
+        //     if (Manager.Instance.CanAddMultipleTroops() != null)
+        //     {
+        //         if (Manager.Instance.CanAddMultipleTroops().TroopType != TroopType)
+        //             return;
+        //     }
+        // }
 
         _imgHighlighted.DOColor(_highlightedColors[1], _enter);
     }
@@ -272,12 +272,12 @@ public class Troop : MonoBehaviour
 public enum TroopsType
 {
     Soldier = 0,
-    Regiment = 1,
-    Tank = 2,
-    BigTank = 3,
-    Fighter = 4,
-    Bomber = 5,
-    Destroyer = 6,
+    Tank = 1,
+    Fighter = 2,
+    Destroyer = 3,
+    Regiment = 4,
+    BigTank = 5,
+    Bomber = 6,
     Cruiser = 7,
     MegaMissile = 8
 }

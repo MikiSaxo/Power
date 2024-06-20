@@ -8,4 +8,6 @@ public class UpgradeInfos
 {
     public int Value;
     public Sprite Icon;
+    public TroopsType TroopType;
+
 }

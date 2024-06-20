@@ -14,7 +14,7 @@ public class ShopManager : MonoBehaviour
         {
             GameObject go = Instantiate(_upgradePrefab, transform);
             var upgrade = go.GetComponent<Upgrade>();
-            upgrade.Init(_upgradeInfos[i].Icon, _upgradeInfos[i].Value, i);
+            upgrade.Init(_upgradeInfos[i].Icon, _upgradeInfos[i].Value, _upgradeInfos[i].TroopType);
             _upgrades.Add(upgrade);
         }
     }

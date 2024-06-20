@@ -9,13 +9,13 @@ public class Upgrade : MonoBehaviour
     [SerializeField] private Button _btn;
 
     private int _cost;
-    private int _index;
+    private TroopsType _troopType;
     
-    public void Init(Sprite newIcon, int cost, int index)
+    public void Init(Sprite newIcon, int cost, TroopsType troopsType)
     {
         _icon.sprite = newIcon;
         _cost = cost;
-        _index = index;
+        _troopType = troopsType;
         UpdateBtn(false);
     }
 
@@ -26,11 +26,11 @@ public class Upgrade : MonoBehaviour
 
     public void GoUpdate()
     {
-        ReserveManager.Instance.BuyShopUpgrade(_cost, _index);
+        ReserveManager.Instance.BuyShopUpgrade(_cost, _troopType);
     }
 
     public void GoFusion()
     {
-        
+        ReserveManager.Instance.AddNewUnit(_troopType);
     }
 }

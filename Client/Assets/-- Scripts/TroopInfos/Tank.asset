@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bdcb057e92e68468169aaf83e87965, type: 3}
   m_Name: Tank
   m_EditorClassIdentifier: 
-  <TroopsType>k__BackingField: 2
+  <TroopsType>k__BackingField: 1
   <MovementRange>k__BackingField: 3
   <Power>k__BackingField: 3
   <CanCrossSea>k__BackingField: 0

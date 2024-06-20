@@ -122,56 +122,23 @@ public class ReserveManager : MonoBehaviour
             power.JumpToReserve();
             yield return new WaitForSeconds(power.TimeAfterJump);
         }
+        
+        shopManager.CheckShopUpgradeAvailable(_powerCount);
     }
 
-    // IEnumerator AddAllPowerTiming(List<Troop> troops)
-    // {
-    //     for (int i = 0; i < 4; i++)
-    //     {
-    //         var countPower = 0;
-    //         foreach (var troop in troops)
-    //         {
-    //             if ((int)troop.MyColorID == i && troop.IsCellEnemyColor())
-    //                 countPower++;
-    //         }
-    //         
-    //         if(countPower != 0)
-    //             SpawnPowerToReserve(countPower, i);
-    //         
-    //         yield return new WaitForSeconds(.5f);
-    //     }
-    // }
-    //
-    // public void SpawnPowerToReserve(int powerCount, int indexColor)
-    // {
-    //     _powerCount += powerCount;
-    //     StartCoroutine(TimingSpawnPower(powerCount, indexColor));
-    // }
-    //
-    // IEnumerator TimingSpawnPower(int newPower, int indexColor)
-    // {
-    //     for (int i = 0; i < newPower; i++)
-    //     {
-    //         GameObject go = Instantiate(_powerPrefab, transform);
-    //         var power = go.GetComponent<Power>();
-    //
-    //         power.InitAnim(indexColor, _reserves[indexColor].GetComponent<Reserve>());
-    //         go.transform.DOPunchScale(Vector3.one, power.TimePunchScale);
-    //         yield return new WaitForSeconds(power.TimePunchScale);
-    //         power.JumpToReserve();
-    //         yield return new WaitForSeconds(power.TimeAfterJump);
-    //     }
-    //
-    //     _upgradeManager.CheckUpgradeAvailable(_powerCount);
-    // }
 
-    public void BuyShopUpgrade(int cost, int index)
+    public void BuyShopUpgrade(int cost, TroopsType troopType)
     {
         _powerCount -= cost;
 
-        _reserves[0].GetComponent<Reserve>().AddNewUnit(index);
+        AddNewUnit(troopType);
         _reserves[0].GetComponent<Reserve>().RemovePower(cost);
 
         shopManager.CheckShopUpgradeAvailable(_powerCount);
+    }
+
+    public void AddNewUnit(TroopsType troopType)
+    {
+        _reserves[0].GetComponent<Reserve>().AddNewUnit(troopType);
     }
 }

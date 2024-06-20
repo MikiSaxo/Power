@@ -33,10 +33,10 @@ public class Reserve : MonoBehaviour
         _powerList.Add(go);
     }
 
-    public void AddNewUnit(int index)
+    public void AddNewUnit(TroopsType troopIndex)
     {
         GameObject go = Instantiate(_troopPrefab, _gridTroops.transform);
-        go.GetComponent<Troop>().InitTroopReserve(_troops[index], 0, transform);
+        go.GetComponent<Troop>().InitTroopReserve(_troops[(int)troopIndex], 0, transform);
 
         _troopList.Add(go);
     }

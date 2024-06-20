@@ -125,6 +125,8 @@ public class Manager : MonoBehaviour
             }
 
             CurrentMultipleTroopsSelected.Clear();
+            
+            FusionManager.Instance.ResetFusionUpgrade();
         }
     }
 
@@ -152,6 +154,7 @@ public class Manager : MonoBehaviour
     {
         troop.IsSelected = true;
         CurrentMultipleTroopsSelected.Add(troop);
+        CheckFusion();
     }
 
     private void RemoveTroopMultipleSelection(Troop troop)
@@ -159,6 +162,13 @@ public class Manager : MonoBehaviour
         troop.IsSelected = false;
         troop.OnPointerExit();
         CurrentMultipleTroopsSelected.Remove(troop);
+        CheckFusion();
+    }
+
+    private void CheckFusion()
+    {
+        FusionManager.Instance.ResetFusionUpgrade();
+        FusionManager.Instance.CheckFusionUpgradeAvailable(CurrentMultipleTroopsSelected);
     }
     
     public Troop CanAddMultipleTroops()

@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c4a3e0b4ade5a4380387850114edd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopManager: {fileID: 0}
+  shopManager: {fileID: 1261369768}
   _powerPrefab: {fileID: 7305089010487997033, guid: 2b4e089c64acc1044844f56a0a7ebbc3, type: 3}
   _reserves:
   - {fileID: 1369337205}
@@ -8855,12 +8855,16 @@ MonoBehaviour:
   _upgradeInfos:
   - Value: 2
     Icon: {fileID: 21300000, guid: 4a7641636ef2c95418e0f4ba27d52b4d, type: 3}
+    TroopType: 0
   - Value: 3
     Icon: {fileID: 21300000, guid: fe1aed67b49bc1642b226a6af1e19b36, type: 3}
+    TroopType: 0
   - Value: 5
     Icon: {fileID: 21300000, guid: a1746bce2c317774d92878a3288ce5c3, type: 3}
+    TroopType: 0
   - Value: 10
     Icon: {fileID: 21300000, guid: 198c58d864fb2b24cb5ed46ff292539b, type: 3}
+    TroopType: 0
 --- !u!1 &1277417843
 GameObject:
   m_ObjectHideFlags: 0
@@ -10529,7 +10533,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -732, y: -404.2}
-  m_SizeDelta: {x: 250.22, y: 100}
+  m_SizeDelta: {x: 378.52, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1347131213
 MonoBehaviour:
@@ -10554,7 +10558,7 @@ MonoBehaviour:
   m_CellSize: {x: 60, y: 60}
   m_Spacing: {x: 10, y: 0}
   m_Constraint: 1
-  m_ConstraintCount: 4
+  m_ConstraintCount: 5
 --- !u!114 &1347131214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10570,13 +10574,20 @@ MonoBehaviour:
   _fusionPrefab: {fileID: 4027339095559675678, guid: ce1cda37e7a0d8a4db57d38b8cb9e911, type: 3}
   _fusionInfos:
   - Value: 0
-    Icon: {fileID: 21300000, guid: c9a8830cabcc73b448a1592bfab0d986, type: 3}
+    Icon: {fileID: 21300000, guid: c549159d2c3734c4a8eaeebcfbc0b122, type: 3}
+    TroopType: 4
   - Value: 0
     Icon: {fileID: 21300000, guid: 6807edb0bcfe94c47b5f2df92feb389b, type: 3}
+    TroopType: 5
+  - Value: 0
+    Icon: {fileID: 21300000, guid: c9a8830cabcc73b448a1592bfab0d986, type: 3}
+    TroopType: 6
   - Value: 0
     Icon: {fileID: 21300000, guid: b292e64470945b04290a86fba56b82c2, type: 3}
+    TroopType: 7
   - Value: 0
     Icon: {fileID: 21300000, guid: 77a30952907b11d4f8320461def3e304, type: 3}
+    TroopType: 8
 --- !u!1 &1369337205 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8437667182813538191, guid: ea0c268cad5fc974b900a4002d85bbf1, type: 3}
