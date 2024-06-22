@@ -41,7 +41,7 @@ public class Troop : MonoBehaviour
     private Cell _lastCell;
     private bool _isAtStart;
 
-    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int indexPosCell, int id)
+    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int id, int indexPosCell = 0,  bool isStart = false)
     {
         // print(troopInfos.name);
         _troopInfos = troopInfos;
@@ -51,7 +51,13 @@ public class Troop : MonoBehaviour
         TroopType = troopInfos.TroopsType;
 
         CurrentCell = startCell;
-        gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
+        
+        // Here for specific location at start
+        if(isStart)
+            gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
+        else
+            gameObject.transform.position = CurrentCell.transform.position;
+        
         MyColorID = (ColorsID)colorIndex;
 
         _troopImg.SetNativeSize();

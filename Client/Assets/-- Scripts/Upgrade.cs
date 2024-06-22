@@ -31,6 +31,6 @@ public class Upgrade : MonoBehaviour
 
     public void GoFusion()
     {
-        ReserveManager.Instance.AddNewUnit(_troopType);
+        ReserveManager.Instance.AddNewUnitByFusion(_troopType);
     }
 }

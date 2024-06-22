@@ -56,11 +56,11 @@ public class Manager : MonoBehaviour
         {
             _titleMenu.SetActive(false);
             _colorMenu.SetActive(false);
-            InitGame();
+            InitReserve();
         }
     }
 
-    public void InitGame()
+    public void InitReserve()
     {
         ReserveManager.Instance.SetReserveColor();
     }
@@ -79,22 +79,6 @@ public class Manager : MonoBehaviour
         MyColorID = (ColorsID)color;
         _textMyColor.text = $"You are {MyColorID}";
         _textMyColor.color = _colorsText[(int)MyColorID];
-    }
-
-    private void SetReserve()
-    {
-        // Prévoir un script réserve ou une list/dico pour savoir quelle réserve appartient à quelle couleur
-        _reserves[0].GetComponentInChildren<Image>().color = _colorsReserves[(int)MyColorID];
-
-        List<ColorsID> availableColors = new List<ColorsID>
-            { ColorsID.Blue, ColorsID.Yellow, ColorsID.Red, ColorsID.Green };
-        availableColors.Remove(MyColorID);
-
-        for (int i = 1; i < _reserves.Length; i++)
-        {
-            var colorIndex = i - 1;
-            _reserves[i].GetComponentInChildren<Image>().color = _colorsReserves[(int)availableColors[colorIndex]];
-        }
     }
 
     public void UpdateAllCells(bool state) // Call for Mega Missile

@@ -29,6 +29,7 @@ public class TroopsManager : MonoBehaviour
     private List<TroopsMovements> _allTroopsMovements = new List<TroopsMovements>();
     
     private int _countID;
+    private Cell[] _cellHQ_BYRG;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class TroopsManager : MonoBehaviour
 
     private void Start()
     {
+        _cellHQ_BYRG = Manager.Instance.CellHQ_BYRG;
         InitTroops();
     }
 
@@ -46,19 +48,37 @@ public class TroopsManager : MonoBehaviour
         {
             for (int i = 0; i < _troopStartInfos.Length; i++)
             {
-                GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
-                go.GetComponent<Troop>().InitTroop(_troopAllInfos[_troopStartInfos[i]], j,
-                    Manager.Instance.CellHQ_BYRG[j], i, _countID);
-                AddNewTroop(go);
-                _countID++;
+                InstantiateNewTroop(_troopStartInfos[i], j, _cellHQ_BYRG[j], i, true);
             }
         }
     }
 
-    public void AddNewTroop(GameObject newTroop)
+    public void InstantiateNewTroop(int troopInfosIndex, int colorIndex, Cell cell, int indexPosCell = 0, bool isStart = false)
+    {
+        GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
+        
+        go.GetComponent<Troop>().InitTroop(
+            _troopAllInfos[troopInfosIndex],
+            colorIndex,
+            cell,
+            _countID,
+            indexPosCell,
+            isStart);
+        
+        AddNewTroopList(go);
+        _countID++;
+    }
+    
+    public void AddNewTroopList(GameObject newTroop)
     {
         AllTroopObj.Add(newTroop);
         AllTroop.Add(newTroop.GetComponent<Troop>());
+    }
+    
+    public void RemoveTroopList(Troop troop)
+    {
+        AllTroopObj.Remove(troop.gameObject);
+        AllTroop.Remove(troop);
     }
 
     public void AddNewMyTroopMovement(int troopID, string cellName, ColorsID colorID)

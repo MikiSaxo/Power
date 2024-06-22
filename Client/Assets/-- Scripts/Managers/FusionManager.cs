@@ -11,6 +11,10 @@ public class FusionManager : MonoBehaviour
 
     private readonly List<Upgrade> _fusions = new List<Upgrade>();
 
+    public Troop CurrentTroopFusion { get; set; }
+    
+    private List<Troop> _troopsSaved = new List<Troop>();
+
     
     private void Awake()
     {
@@ -39,6 +43,8 @@ public class FusionManager : MonoBehaviour
                     int index = (int)firstTroopType;
                     if (index < _fusions.Count)
                     {
+                        _troopsSaved = troops;
+                        CurrentTroopFusion = troops[0];
                         _fusions[index].UpdateBtn(true);
                     }
                 }
@@ -52,5 +58,18 @@ public class FusionManager : MonoBehaviour
         {
             fusion.UpdateBtn(false);
         }
+        CurrentTroopFusion = null;
+        _troopsSaved.Clear();
+    }
+
+    public void FusionHasBeenDone()
+    {
+        foreach (var troop in _troopsSaved)
+        {
+            TroopsManager.Instance.RemoveTroopList(troop);
+            Destroy(troop.gameObject);
+        }
+        
+        ResetFusionUpgrade();
     }
 }
