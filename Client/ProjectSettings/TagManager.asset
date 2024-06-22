@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Map
+    uniqueID: 2203145981
+    locked: 0
+  - name: LineConnector
+    uniqueID: 1240152075
+    locked: 0
+  - name: Troop
+    uniqueID: 3057457711
+    locked: 0
