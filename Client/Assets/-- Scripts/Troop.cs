@@ -117,13 +117,12 @@ public class Troop : MonoBehaviour
         if (HasMoved) return;
 
         HasMoved = true;
-
-        _lineConnector.LinkLineRenderer(CurrentCell.gameObject.transform.position,
-            newCell.gameObject.transform.position);
-
+        
         _isAtStart = false;
         _lastCell = CurrentCell;
         CurrentCell = newCell;
+        
+        StartCoroutine(DrawLineConnector());
 
         var distance = Vector3.Distance(gameObject.transform.position, CurrentCell.gameObject.transform.position);
         int nbJump = (int)distance;
@@ -137,6 +136,22 @@ public class Troop : MonoBehaviour
 
         if (MyColorID == Manager.Instance.MyColorID)
             OrdersManager.Instance.UpdateOrdersLeft(true);
+    }
+
+    private IEnumerator DrawLineConnector()
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < 5)
+        {
+            if(_lastCell != null)
+                _lineConnector.LinkLineRenderer(_lastCell.gameObject.transform.position, gameObject.transform.position);
+            else
+            {
+                ResetLineConnector();
+                yield break;
+            }
+            yield return null; // Attendre jusqu'à la prochaine frame
+        }
     }
 
     public void ArrivedToNewCell()
@@ -271,6 +286,7 @@ public class Troop : MonoBehaviour
 
     public void ResetLineConnector()
     {
+        StopCoroutine("DrawLineConnector");
         _lineConnector.ResetLine();
     }
 }
