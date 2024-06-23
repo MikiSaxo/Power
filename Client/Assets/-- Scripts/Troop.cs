@@ -41,7 +41,7 @@ public class Troop : MonoBehaviour
     private Cell _lastCell;
     private bool _isAtStart;
 
-    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int id, int indexPosCell = 0,  bool isStart = false)
+    public void InitTroop(TroopInfos troopInfos, int colorIndex, Cell startCell, int id)//, int indexPosCell = 0)
     {
         // print(troopInfos.name);
         _troopInfos = troopInfos;
@@ -53,10 +53,10 @@ public class Troop : MonoBehaviour
         CurrentCell = startCell;
         
         // Here for specific location at start
-        if(isStart)
-            gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
-        else
-            gameObject.transform.position = CurrentCell.transform.position;
+        // if(isStart)
+        //     gameObject.transform.position = CurrentCell.StartPointsHQ[indexPosCell].position;
+        // else
+        //     gameObject.transform.position = CurrentCell.transform.position;
         
         MyColorID = (ColorsID)colorIndex;
 
@@ -68,22 +68,12 @@ public class Troop : MonoBehaviour
         _isAtStart = true;
     }
 
-    public void InitTroopReserve(TroopInfos troopInfos, int colorIndex, Transform reservePos)
-    {
-        _troopInfos = troopInfos;
-        _troopImg.sprite = troopInfos.TroopSprite;
-        _troopImg.color = Manager.Instance.PawnColors[colorIndex];
-
-        gameObject.transform.position = reservePos.position;
-        MyColorID = (ColorsID)colorIndex;
-
-        _troopImg.SetNativeSize();
-
-        if (MyColorID == ColorsID.Red || MyColorID == ColorsID.Green)
-            _troopImg.transform.localScale = new Vector3(-1, 1, 1);
-
-        _isAtStart = true;
-    }
+    // public void InitTroopReserve(TroopInfos troopInfos, int colorIndex, Cell startCell, Transform reservePos)
+    // {
+    //     InitTroop(troopInfos, colorIndex, startCell, TroopsManager.Instance.TroopCountID);
+    //
+    //     gameObject.transform.position = reservePos.position;
+    // }
 
 
     private void SelectTroop()

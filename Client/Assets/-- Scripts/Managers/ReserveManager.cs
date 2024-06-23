@@ -131,7 +131,7 @@ public class ReserveManager : MonoBehaviour
     {
         _powerCount -= cost;
 
-        _reserves[0].GetComponent<Reserve>().AddNewUnit(troopType);
+        _reserves[0].GetComponent<Reserve>().AddNewUnitFromShop(troopType);
         _reserves[0].GetComponent<Reserve>().RemovePower(cost);
 
         shopManager.CheckShopUpgradeAvailable(_powerCount);
@@ -140,7 +140,10 @@ public class ReserveManager : MonoBehaviour
     public void AddNewUnitByFusion(TroopsType troopType)
     {
         var troop = FusionManager.Instance.CurrentTroopFusion;
-        TroopsManager.Instance.InstantiateNewTroop((int)troopType, (int)troop.MyColorID, troop.CurrentCell);
+
+        TroopsManager.Instance.InstantiateNewTroop(troopType, (int)troop.MyColorID, troop.CurrentCell,
+            troop.CurrentCell.IsCellReserve);
+
         FusionManager.Instance.FusionHasBeenDone();
         
         // _reserves[0].GetComponent<Reserve>().AddNewUnit(troopType);

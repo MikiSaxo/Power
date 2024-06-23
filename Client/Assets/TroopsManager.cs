@@ -10,12 +10,15 @@ public class TroopsManager : MonoBehaviour
     public List<GameObject> AllTroopObj { get; set; } = new List<GameObject>();
     public List<Troop> AllTroop { get; set; } = new List<Troop>();
 
+    public int TroopCountID => _countID;
+
     [Header("----- Troops -----")] [SerializeField]
     private GameObject _troopsParent;
 
     [SerializeField] private GameObject _troopPrefab;
     [SerializeField] private TroopInfos[] _troopAllInfos;
-    [SerializeField] private int[] _troopStartInfos;
+    [SerializeField] private TroopsType[] _troopStartInfos;
+    [SerializeField] private Transform[] _troopReserveParent;
 
     [Header("----- Timings -----")] [SerializeField]
     private float _timeMoveTroop = .25f;
@@ -25,9 +28,9 @@ public class TroopsManager : MonoBehaviour
 
     private List<TroopsMovements> _myTroopsMovements = new List<TroopsMovements>();
     private List<Troop> _myTroopsLastMovements = new List<Troop>();
-    
+
     private List<TroopsMovements> _allTroopsMovements = new List<TroopsMovements>();
-    
+
     private int _countID;
     private Cell[] _cellHQ_BYRG;
 
@@ -48,33 +51,54 @@ public class TroopsManager : MonoBehaviour
         {
             for (int i = 0; i < _troopStartInfos.Length; i++)
             {
-                InstantiateNewTroop(_troopStartInfos[i], j, _cellHQ_BYRG[j], i, true);
+                InstantiateNewTroop(_troopStartInfos[i], j, _cellHQ_BYRG[j], false, i, true);
             }
         }
     }
 
-    public void InstantiateNewTroop(int troopInfosIndex, int colorIndex, Cell cell, int indexPosCell = 0, bool isStart = false)
+    public void InstantiateNewTroop(TroopsType troopType, int colorIndex, Cell cell, bool isReserve = false,
+        int indexPosCell = 0, bool isStart = false)
     {
         GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
-        
+
+        // if(parent == null)
+        //     go.transform.SetParent(_troopsParent.transform);
+        // else
+        //     go.transform.SetParent(parent);
+
+        print($"----- Init : {troopType}");
+
         go.GetComponent<Troop>().InitTroop(
-            _troopAllInfos[troopInfosIndex],
+            _troopAllInfos[(int)troopType],
             colorIndex,
             cell,
-            _countID,
-            indexPosCell,
-            isStart);
-        
+            _countID);
+
         AddNewTroopList(go);
         _countID++;
+
+        if (isReserve)
+        {
+            go.transform.SetParent(_troopReserveParent[colorIndex]);
+        }
+        else
+        {
+            if (isStart)
+                go.transform.position = cell.StartPointsHQ[indexPosCell].position;
+            else
+                go.transform.position = cell.transform.position;
+        }
+
+        go.GetComponent<Troop>().ArrivedToNewCell();
     }
-    
+
+
     public void AddNewTroopList(GameObject newTroop)
     {
         AllTroopObj.Add(newTroop);
         AllTroop.Add(newTroop.GetComponent<Troop>());
     }
-    
+
     public void RemoveTroopList(Troop troop)
     {
         AllTroopObj.Remove(troop.gameObject);
@@ -123,7 +147,8 @@ public class TroopsManager : MonoBehaviour
     {
         foreach (var troop in _myTroopsMovements)
         {
-            PlayerIOScript.Instance.Pioconnection.Send("MoveTroop", troop.TroopID, troop.CellName, (int)troop.TroopColorID);
+            PlayerIOScript.Instance.Pioconnection.Send("MoveTroop", troop.TroopID, troop.CellName,
+                (int)troop.TroopColorID);
         }
 
         print("All infos send to server");
@@ -136,7 +161,7 @@ public class TroopsManager : MonoBehaviour
 
         StartCoroutine(TimingMoveAllTroops());
     }
-    
+
     IEnumerator TimingMoveAllTroops()
     {
         for (int i = 0; i < 4; i++)

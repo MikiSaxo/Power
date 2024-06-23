@@ -35,12 +35,16 @@ public class Reserve : MonoBehaviour
         _powerList.Add(go);
     }
 
-    public void AddNewUnit(TroopsType troopIndex)
+    public void AddNewUnitFromShop(TroopsType troopType)
     {
-        GameObject go = Instantiate(_troopPrefab, _gridTroops.transform);
-        go.GetComponent<Troop>().InitTroopReserve(_troops[(int)troopIndex], 0, transform);
-
-        _troopList.Add(go);
+        // GameObject go = Instantiate(_troopPrefab, _gridTroops.transform);
+        // go.GetComponent<Troop>().InitTroopReserve(_troops[(int)troopIndex], 0, _myCell, transform);
+        //
+        // _troopList.Add(go);
+        
+        print($"-- Add new unit from shop: {troopType} --");
+        
+        TroopsManager.Instance.InstantiateNewTroop(troopType, (int)MyColorID, _myCell, true);
     }
 
     public void RemovePower(int nb)

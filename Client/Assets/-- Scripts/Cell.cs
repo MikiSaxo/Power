@@ -28,6 +28,7 @@ public class Cell : MonoBehaviour
     [field: SerializeField] public Transform[] StartPointsHQ { get; set; }
 
     public bool IsBlocked { get; set; }
+    public bool IsCellReserve => _isReserve;
 
     private bool _isActive;
     private bool _isReserve;
