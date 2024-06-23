@@ -15713,7 +15713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3781656da0521ae4292ef9c336f30b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bypassStart: 1
+  _bypassStart: 0
   _titleMenu: {fileID: 665726177}
   _colorMenu: {fileID: 77405756}
   _allCells:
@@ -17481,6 +17481,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2006693769}
+    - target: {fileID: 5888003913600636063, guid: 5021dcc0f2400ed45acaed1106144d67, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: InitReserve
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

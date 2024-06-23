@@ -14,10 +14,10 @@ public class Cell : MonoBehaviour
     [SerializeField] private bool _isFullLand;
     [field: SerializeField] public List<Cell> Neighbor { get; set; } = new List<Cell>();
 
-    [Header("---- Prefab")] [SerializeField]
-    private Image _img;
-
+    [Header("---- Prefab")]
+    [SerializeField] private Image _img;
     [SerializeField] private Color[] _colors;
+
 
     [Header("--- Timings ---")] 
     [SerializeField] private float _enter = .5f;
@@ -30,6 +30,14 @@ public class Cell : MonoBehaviour
     public bool IsBlocked { get; set; }
 
     private bool _isActive;
+    private bool _isReserve;
+    
+    public void InitCellReserve(Cell cell, ColorsID colorsID)
+    {
+        Neighbor.Add(cell);
+        CellColorID = colorsID;
+        _isReserve = true;
+    }
 
     public void UpdateViewCell(bool state, bool canCrossSea)
     {
@@ -53,6 +61,8 @@ public class Cell : MonoBehaviour
 
     public void ForceUpdateViewCell(bool state)
     {
+        if(_isReserve) return;
+        
         if (state)
         {
             _img.DOKill();

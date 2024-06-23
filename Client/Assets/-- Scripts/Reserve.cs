@@ -13,6 +13,7 @@ public class Reserve : MonoBehaviour
     [SerializeField] private Transform _gridTroops;
     [SerializeField] private TroopInfos[] _troops;
     [SerializeField] private Image _bgImage;
+    [SerializeField] private Cell _myCell;
 
     private List<GameObject> _powerList = new List<GameObject>();
     private List<GameObject> _troopList = new List<GameObject>();
@@ -23,6 +24,7 @@ public class Reserve : MonoBehaviour
     {
         MyColorID = colorsID;
         _bgImage.color = color;
+        _myCell.InitCellReserve(Manager.Instance.CellHQ_BYRG[(int)colorsID], colorsID);
     }
 
     public void AddNewPower(int colorIndex)
