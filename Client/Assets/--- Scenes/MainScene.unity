@@ -16150,7 +16150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3781656da0521ae4292ef9c336f30b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bypassStart: 0
+  _bypassStart: 1
   _titleMenu: {fileID: 665726177}
   _colorMenu: {fileID: 77405756}
   _allCells:
@@ -17166,6 +17166,10 @@ PrefabInstance:
       propertyPath: _colorMenuAnim
       value: 
       objectReference: {fileID: 1909767199}
+    - target: {fileID: 5302221825383616470, guid: 3cdbfe0e91df7974e9c515e677730ef6, type: 3}
+      propertyPath: _canvasGroupTroop
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

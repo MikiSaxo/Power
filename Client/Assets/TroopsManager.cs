@@ -42,16 +42,21 @@ public class TroopsManager : MonoBehaviour
     private void Start()
     {
         _cellHQ_BYRG = Manager.Instance.CellHQ_BYRG;
-        InitTroops();
+    }
+    
+    public void InitStartsTroops()
+    {
+        StartCoroutine(InitTroops());
     }
 
-    private void InitTroops()
+    private IEnumerator InitTroops()
     {
         for (int j = 0; j < 4; j++)
         {
             for (int i = 0; i < _troopStartInfos.Length; i++)
             {
                 InstantiateNewTroop(_troopStartInfos[i], j, _cellHQ_BYRG[j], false, i, true);
+                yield return new WaitForSeconds(.1f);
             }
         }
     }
@@ -60,13 +65,8 @@ public class TroopsManager : MonoBehaviour
         int indexPosCell = 0, bool isStart = false)
     {
         GameObject go = Instantiate(_troopPrefab, _troopsParent.transform);
-
-        // if(parent == null)
-        //     go.transform.SetParent(_troopsParent.transform);
-        // else
-        //     go.transform.SetParent(parent);
-
-        print($"----- Init : {troopType}");
+        
+        // print($"----- Init : {troopType}");
 
         go.GetComponent<Troop>().InitTroop(
             _troopAllInfos[(int)troopType],
@@ -180,7 +180,7 @@ public class TroopsManager : MonoBehaviour
         }
 
         // Check combat 
-        ReserveManager.Instance.AddAllPower(_myTroopsLastMovements);
+        ReserveManager.Instance.AddAllPower(AllTroop);
         yield return new WaitForSeconds(_timeMoveTroop);
         RecenterTroops();
         ResetMovTroops();
@@ -191,9 +191,9 @@ public class TroopsManager : MonoBehaviour
 
     public void RecenterTroops()
     {
-        foreach (var troop in AllTroopObj)
+        foreach (var troop in AllTroop)
         {
-            troop.GetComponent<Troop>().ArrivedToNewCell();
+            troop.ArrivedToNewCell();
         }
     }
 
@@ -202,6 +202,7 @@ public class TroopsManager : MonoBehaviour
         foreach (var troop in AllTroop)
         {
             troop.HasMoved = false;
+            troop.ResetLineConnector();
         }
     }
 }

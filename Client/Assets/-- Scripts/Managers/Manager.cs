@@ -57,6 +57,7 @@ public class Manager : MonoBehaviour
             _titleMenu.SetActive(false);
             _colorMenu.SetActive(false);
             InitReserve();
+            TroopsManager.Instance.InitStartsTroops();
         }
     }
 

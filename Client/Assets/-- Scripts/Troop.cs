@@ -66,6 +66,8 @@ public class Troop : MonoBehaviour
             _troopImg.transform.localScale = new Vector3(-1, 1, 1);
 
         _isAtStart = true;
+        
+        BounceTroop();
     }
 
     // public void InitTroopReserve(TroopInfos troopInfos, int colorIndex, Cell startCell, Transform reservePos)
@@ -75,6 +77,10 @@ public class Troop : MonoBehaviour
     //     gameObject.transform.position = reservePos.position;
     // }
 
+    private void BounceTroop()
+    {
+        _troopImg.gameObject.transform.DOPunchScale(new Vector3(.3f, .3f, .3f), 1f, 5);
+    }
 
     private void SelectTroop()
     {
@@ -86,7 +92,9 @@ public class Troop : MonoBehaviour
         {
             Manager.Instance.UpdateTroopSelected(this);
             CurrentCell.IsBlocked = true;
-            CurrentCell.UpdateAllNeighbor(true, _troopInfos.MovementRange, _troopInfos.CanCrossSea);
+
+            CurrentCell.UpdateAllNeighbor(true, !CurrentCell.IsCellReserve ? _troopInfos.MovementRange : 1,
+                _troopInfos.CanCrossSea);
         }
     }
 

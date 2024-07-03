@@ -39,11 +39,6 @@ public class ColorMenuAnim : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        // OnClickBtnColor(0);
-    }
-
     public void OnClick()
     {
         StartCoroutine(AnimColorMenu());
@@ -60,9 +55,12 @@ public class ColorMenuAnim : MonoBehaviour
         }
         
         _buttonBattle.transform.DOScale(0, _timeScaleBtnBattle).SetEase(Ease.InBounce);
+        
         yield return new WaitForSeconds(_timeBgFade - (_timeBetweenBtnColor * _buttonsColors.Length));
         
         _bg.DOFade(0, _timeBgFade);
+        TroopsManager.Instance.InitStartsTroops();
+        
         yield return new WaitForSeconds(_timeBgFade);
         
         gameObject.SetActive(false);
