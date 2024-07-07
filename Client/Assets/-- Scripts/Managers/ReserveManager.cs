@@ -57,6 +57,7 @@ public class ReserveManager : MonoBehaviour
     IEnumerator AddAllPowerTiming(List<Troop> troops)
     {
         Dictionary<ColorsID, int> colorCounts = new Dictionary<ColorsID, int>();
+        HashSet<Cell> countedCells = new HashSet<Cell>();
 
         // Compter le nombre de "troops" de chaque couleur sur des cases ennemies
         foreach (var troop in troops)
@@ -64,9 +65,18 @@ public class ReserveManager : MonoBehaviour
             if (troop.IsCellEnemyColor())
             {
                 var colorID = troop.MyColorID;
-                if (!colorCounts.TryAdd(colorID, 1))
+                // if (!colorCounts.TryAdd(colorID, 1))
+                // {
+                //     colorCounts[colorID]++;
+                // }
+                
+                if (!countedCells.Contains(troop.CurrentCell))
                 {
-                    colorCounts[colorID]++;
+                    if (!colorCounts.TryAdd(colorID, 1))
+                    {
+                        colorCounts[colorID]++;
+                    }
+                    countedCells.Add(troop.CurrentCell);
                 }
             }
         }
@@ -103,8 +113,14 @@ public class ReserveManager : MonoBehaviour
         return null;
     }
 
-    public void SpawnPowerToReserve(int powerCount, Reserve reserve)
+    private void SpawnPowerToReserve(int powerCount, Reserve reserve)
     {
+        if (_powerCount + powerCount > 10)
+            powerCount = 10 - _powerCount;
+
+        if (powerCount == 0)
+            return;
+        
         _powerCount += powerCount;
         StartCoroutine(TimingSpawnPower(powerCount, reserve));
     }
