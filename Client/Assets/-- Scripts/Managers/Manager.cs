@@ -41,7 +41,7 @@ public class Manager : MonoBehaviour
 
     public ColorsID MyColorID { get; set; }
     public Troop CurrentTroopSelected { get; set; }
-    public List<Troop> CurrentMultipleTroopsSelected { get; set; } = new List<Troop>();
+    public List<Troop> CurrentMultipleTroopsSelected = new List<Troop>();
     public Cell CurrentCellSelected { get; set; }
 
 
@@ -92,27 +92,8 @@ public class Manager : MonoBehaviour
 
     public void UpdateTroopSelected(Troop newTroop)
     {
-        if (CurrentTroopSelected != null)
-        {
-            ResetAllCells();
-            CurrentTroopSelected.IsSelected = false;
-            CurrentTroopSelected.OnPointerExit();
-        }
-
+        ResetAllTroopsAndCells();
         CurrentTroopSelected = newTroop;
-
-        if (CurrentMultipleTroopsSelected.Count > 0)
-        {
-            foreach (var troop in CurrentMultipleTroopsSelected)
-            {
-                troop.IsSelected = false;
-                troop.OnPointerExit();
-            }
-
-            CurrentMultipleTroopsSelected.Clear();
-            
-            FusionManager.Instance.ResetFusionUpgrade();
-        }
     }
 
     public void UpdateMultipleTroopsSelected(Troop troop)
@@ -121,6 +102,7 @@ public class Manager : MonoBehaviour
         {
             AddTroopMultipleSelection(troop);
             AddTroopMultipleSelection(CurrentTroopSelected);
+
             CurrentTroopSelected = null;
             return;
         }
@@ -139,6 +121,7 @@ public class Manager : MonoBehaviour
     {
         troop.IsSelected = true;
         CurrentMultipleTroopsSelected.Add(troop);
+        
         CheckFusion();
     }
 
@@ -147,6 +130,7 @@ public class Manager : MonoBehaviour
         troop.IsSelected = false;
         troop.OnPointerExit();
         CurrentMultipleTroopsSelected.Remove(troop);
+        
         CheckFusion();
     }
 
@@ -155,16 +139,7 @@ public class Manager : MonoBehaviour
         FusionManager.Instance.ResetFusionUpgrade();
         FusionManager.Instance.CheckFusionUpgradeAvailable(CurrentMultipleTroopsSelected);
     }
-    
-    public Troop CanAddMultipleTroops()
-    {
-        if (CurrentMultipleTroopsSelected.Count == 0 && CurrentTroopSelected == null) return null;
-        
-        if(CurrentTroopSelected != null)
-            return CurrentTroopSelected;
-        
-        return CurrentMultipleTroopsSelected[0];
-    }
+
 
     public void CheckMovementMyTroop(Cell newCell)
     {
@@ -186,13 +161,25 @@ public class Manager : MonoBehaviour
             cell.ResetCell();
         }
     }
+    
+    public void ResetAllTroopsAndCells()
+    {
+        ResetAllCells();
 
-    // public void ResetAllSelected()
-    // {
-    //     if (CurrentTroopSelected != null)
-    //         CurrentTroopSelected.DeselectTroop();
-    //
-    //     CurrentTroopSelected = null;
-    //     CurrentCellSelected = null;
-    // }
+        if (CurrentTroopSelected != null)
+        {
+            CurrentTroopSelected.IsSelected = false;
+            CurrentTroopSelected.OnPointerExit();
+            CurrentTroopSelected = null;
+        }
+        
+        foreach (var troop in CurrentMultipleTroopsSelected)
+        {
+            troop.IsSelected = false;
+            troop.OnPointerExit();
+        }
+
+        CurrentMultipleTroopsSelected.Clear();
+        FusionManager.Instance.ResetFusionUpgrade();
+    }
 }

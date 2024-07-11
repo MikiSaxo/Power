@@ -12,14 +12,15 @@ public class FusionManager : MonoBehaviour
     private readonly List<Upgrade> _fusions = new List<Upgrade>();
 
     public Troop CurrentTroopFusion { get; set; }
-    
+
     private List<Troop> _troopsSaved = new List<Troop>();
 
-    
+
     private void Awake()
     {
         Instance = this;
     }
+
     private void Start()
     {
         for (int i = 0; i < _fusionInfos.Length; i++)
@@ -33,33 +34,37 @@ public class FusionManager : MonoBehaviour
 
     public void CheckFusionUpgradeAvailable(List<Troop> troops)
     {
-        if (troops.Count == 2)
+        if (troops.Count != 2)
         {
-            var firstTroopType = troops[0].TroopType;
-            if (troops.TrueForAll(troop => troop.TroopType == firstTroopType))
+            return;
+        }
+
+        var firstTroopType = troops[0].TroopType;
+        if (troops.TrueForAll(troop => troop.TroopType == firstTroopType))
+        {
+            if (firstTroopType == TroopsType.Soldier || firstTroopType == TroopsType.Tank ||
+                firstTroopType == TroopsType.Fighter || firstTroopType == TroopsType.Destroyer)
             {
-                if (firstTroopType == TroopsType.Soldier || firstTroopType == TroopsType.Tank || firstTroopType == TroopsType.Fighter || firstTroopType == TroopsType.Destroyer)
+                int index = (int)firstTroopType;
+                if (index < _fusions.Count)
                 {
-                    int index = (int)firstTroopType;
-                    if (index < _fusions.Count)
-                    {
-                        _troopsSaved = troops;
-                        CurrentTroopFusion = troops[0];
-                        _fusions[index].UpdateBtn(true);
-                    }
+                    _troopsSaved = troops;
+                    CurrentTroopFusion = troops[0];
+                    _fusions[index].UpdateBtn(true);
                 }
             }
         }
     }
-    
+
     public void ResetFusionUpgrade()
     {
         foreach (var fusion in _fusions)
         {
             fusion.UpdateBtn(false);
         }
+
         CurrentTroopFusion = null;
-        _troopsSaved.Clear();
+        _troopsSaved = new List<Troop>();
     }
 
     public void FusionHasBeenDone()
@@ -69,7 +74,7 @@ public class FusionManager : MonoBehaviour
             TroopsManager.Instance.RemoveTroopList(troop);
             Destroy(troop.gameObject);
         }
-        
+
         ResetFusionUpgrade();
     }
 }

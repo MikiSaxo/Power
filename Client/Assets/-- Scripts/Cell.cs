@@ -114,6 +114,7 @@ public class Cell : MonoBehaviour
     {
         if (!_isActive)
         {
+            Manager.Instance.ResetAllTroopsAndCells();
             return;
         }
 

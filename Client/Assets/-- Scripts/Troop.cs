@@ -100,7 +100,6 @@ public class Troop : MonoBehaviour
 
     public void DeselectTroop()
     {
-        Manager.Instance.ResetAllCells();
         Manager.Instance.UpdateTroopSelected(null);
         IsSelected = false;
         OnPointerExit();
